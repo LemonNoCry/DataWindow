@@ -13,10 +13,16 @@ namespace DataWindow.CustomPropertys
         private readonly CustomProperty _customProperty = null;
         private readonly PropertyDescriptor _propertyDescriptor = null;
 
+     
         public CustomPropertyDescriptor(PropertyDescriptor basePropertyDescriptor, Attribute[] attrs, CustomProperty customProperty)
             : base(basePropertyDescriptor, attrs)
         {
             this._propertyDescriptor = basePropertyDescriptor;
+            this._customProperty = customProperty;
+        }
+
+        public CustomPropertyDescriptor(CustomProperty customProperty, Attribute[] attrs): base(customProperty.Name, attrs)
+        {
             this._customProperty = customProperty;
         }
 
@@ -29,13 +35,25 @@ namespace DataWindow.CustomPropertys
 
         public override Type ComponentType
         {
-            get { return _propertyDescriptor.ComponentType; }
+            get
+            {
+                if (_propertyDescriptor == null)
+                {
+                    return _customProperty.GetType();
+                }
+
+                return _propertyDescriptor.ComponentType;
+            }
         }
 
         [RefreshProperties(RefreshProperties.All)]
         public override object GetValue(object component)
         {
-            //return _customProperty.Value;
+            if (_propertyDescriptor == null)
+            {
+                return _customProperty.Value;
+            }
+
             return _propertyDescriptor.GetValue(component);
         }
 
@@ -46,18 +64,36 @@ namespace DataWindow.CustomPropertys
 
         public override Type PropertyType
         {
-            get { return this._propertyDescriptor.PropertyType; }
+            get
+            {
+                if (_propertyDescriptor == null)
+                {
+                    return _customProperty.ValueType;
+                }
+
+                return this._propertyDescriptor.PropertyType;
+            }
         }
 
         public override void ResetValue(object component)
         {
-            //_customProperty.ResetValue();
+            if (_propertyDescriptor == null)
+            {
+                _customProperty.ResetValue();
+                return;
+            }
+
             _propertyDescriptor.ResetValue(component);
         }
 
         public override void SetValue(object component, object value)
         {
-            //_customProperty.Value = value;
+            if (_propertyDescriptor == null)
+            {
+                _customProperty.Value = value;
+                return;
+            }
+
             _propertyDescriptor.SetValue(component, value);
         }
 
@@ -65,6 +101,10 @@ namespace DataWindow.CustomPropertys
 
         public override bool ShouldSerializeValue(object component)
         {
+            if (_propertyDescriptor==null)
+            {
+                return true;
+            }
             if (!flag.HasValue)
             {
                 flag = _propertyDescriptor.ShouldSerializeValue(component);

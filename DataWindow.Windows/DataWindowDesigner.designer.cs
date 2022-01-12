@@ -11,6 +11,7 @@ namespace DataWindow.Windows
 
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(DataWindowDesigner));
             this.toolStrip = new System.Windows.Forms.ToolStrip();
             this.tbNewForm = new System.Windows.Forms.ToolStripButton();
             this.tbOpenForm = new System.Windows.Forms.ToolStripButton();
@@ -355,7 +356,7 @@ namespace DataWindow.Windows
             // 
             this.miNewForm.Name = "miNewForm";
             this.miNewForm.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.N)));
-            this.miNewForm.Size = new System.Drawing.Size(180, 22);
+            this.miNewForm.Size = new System.Drawing.Size(165, 22);
             this.miNewForm.Text = "新建(&N)";
             this.miNewForm.Click += new System.EventHandler(this.miNewForm_Click);
             // 
@@ -363,7 +364,7 @@ namespace DataWindow.Windows
             // 
             this.miOpenForm.Name = "miOpenForm";
             this.miOpenForm.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.O)));
-            this.miOpenForm.Size = new System.Drawing.Size(180, 22);
+            this.miOpenForm.Size = new System.Drawing.Size(165, 22);
             this.miOpenForm.Text = "打开(&O)";
             this.miOpenForm.Click += new System.EventHandler(this.miOpenForm_Click);
             // 
@@ -371,20 +372,20 @@ namespace DataWindow.Windows
             // 
             this.miSaveForm.Name = "miSaveForm";
             this.miSaveForm.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.S)));
-            this.miSaveForm.Size = new System.Drawing.Size(180, 22);
+            this.miSaveForm.Size = new System.Drawing.Size(165, 22);
             this.miSaveForm.Text = "保存(&S)";
             this.miSaveForm.Click += new System.EventHandler(this.miSaveForm_Click);
             // 
             // menuItem6
             // 
             this.menuItem6.Name = "menuItem6";
-            this.menuItem6.Size = new System.Drawing.Size(177, 6);
+            this.menuItem6.Size = new System.Drawing.Size(162, 6);
             // 
             // miExitDesigner
             // 
             this.miExitDesigner.Name = "miExitDesigner";
             this.miExitDesigner.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.X)));
-            this.miExitDesigner.Size = new System.Drawing.Size(180, 22);
+            this.miExitDesigner.Size = new System.Drawing.Size(165, 22);
             this.miExitDesigner.Text = "退出(&X)";
             this.miExitDesigner.Click += new System.EventHandler(this.miExitDesigner_Click);
             // 
@@ -618,10 +619,10 @@ namespace DataWindow.Windows
             this.Controls.Add(this.menuStrip1);
             this.DoubleBuffered = true;
             this.Font = new System.Drawing.Font("Tahoma", 8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.IsMdiContainer = true;
             this.MainMenuStrip = this.menuStrip1;
             this.Name = "DataWindowDesigner";
-            this.ShowIcon = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "表单设计器";
             this.WindowState = System.Windows.Forms.FormWindowState.Maximized;

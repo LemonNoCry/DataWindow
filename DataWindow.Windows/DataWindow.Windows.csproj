@@ -31,6 +31,9 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
+  <PropertyGroup>
+    <ApplicationIcon>Resources\design.ico</ApplicationIcon>
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Configuration" />
@@ -83,6 +86,9 @@
     <Compile Include="Dock\ToolboxWindow.designer.cs">
       <DependentUpon>ToolboxWindow.cs</DependentUpon>
     </Compile>
+    <EmbeddedResource Include="CustomForm.resx">
+      <DependentUpon>CustomForm.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Dock\DesignerDocument.resx">
       <DependentUpon>DesignerDocument.cs</DependentUpon>
     </EmbeddedResource>
@@ -139,6 +145,7 @@
     <None Include="Resources\new_form_16x.png" />
     <None Include="Resources\open_file_16x.png" />
     <None Include="Resources\lock_16x.png" />
+    <Content Include="Resources\design.ico" />
     <Content Include="Resources\redo_16x.png" />
     <Content Include="Resources\same_height_16x.png" />
     <Content Include="Resources\same_size_16x.png" />

@@ -157,7 +157,7 @@ namespace DataWindow.Windows.Old
             saveFileDialog.RestoreDirectory = true;
             if (saveFileDialog.ShowDialog() == DialogResult.OK && saveFileDialog.FilterIndex == 1)
             {
-                var layoutXML = designer.LayoutXML;
+                var layoutXML = designer.LayoutXml;
                 var streamWriter = new StreamWriter(saveFileDialog.FileName);
                 streamWriter.Write((string) layoutXML);
                 streamWriter.Close();

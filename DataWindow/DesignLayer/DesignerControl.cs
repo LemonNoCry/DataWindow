@@ -34,7 +34,7 @@ namespace DataWindow.DesignLayer
         public DesignerControl(Control root, string layoutXml) : this()
         {
             DesignedForm = root;
-            Designer.LayoutXML = layoutXml;
+            Designer.LayoutXml = layoutXml;
         }
 
         public Control DesignedForm

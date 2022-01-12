@@ -133,7 +133,7 @@ namespace DataWindow.Windows
 
             if (saveFileName.ShowDialog() == DialogResult.OK)
             {
-                string test = this.activeDesigner.LayoutXML;
+                string test = this.activeDesigner.LayoutXml;
 
                 TextWriter txtWriter = new StreamWriter(saveFileName.FileName);
                 txtWriter.Write(test);
@@ -233,6 +233,8 @@ namespace DataWindow.Windows
 
         private bool DesignEvents_AddingVerb(IComponent primarySelection, DesignerVerb verb)
         {
+            Console.WriteLine(verb.Description);
+            Console.WriteLine(verb.Text);
             return true;
         }
 

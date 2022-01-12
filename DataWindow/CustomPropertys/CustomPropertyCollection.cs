@@ -71,6 +71,39 @@ namespace DataWindow.CustomPropertys
             return TypeDescriptor.GetEvents(this, true);
         }
 
+        public PropertyDescriptorCollection CustomAddProperties(PropertyDescriptorCollection pdc)
+        {
+            var fixedPro = this.Where(s => s.FixedValue != null && !string.IsNullOrWhiteSpace(s.FixedValue.ToString())).ToList();
+            if (fixedPro.Any())
+            {
+                foreach (CustomProperty cp in fixedPro)
+                {
+                    List<Attribute> attrs = new List<Attribute>();
+                    //[Browsable(false)]
+                    if (!cp.IsBrowsable)
+                    {
+                        attrs.Add(new BrowsableAttribute(cp.IsBrowsable));
+                    }
+
+                    //[ReadOnly(true)]
+                    if (cp.IsReadOnly)
+                    {
+                        attrs.Add(new ReadOnlyAttribute(cp.IsReadOnly));
+                    }
+
+                    //[Editor(typeof(editor),typeof(UITypeEditor))]
+                    if (cp.EditorType != null)
+                    {
+                        attrs.Add(new EditorAttribute(cp.EditorType, typeof(System.Drawing.Design.UITypeEditor)));
+                    }
+
+                    _propDescCol.Add(new CustomPropertyDescriptor(cp, attrs.ToArray()));
+                }
+            }
+
+            return pdc;
+        }
+
         public PropertyDescriptorCollection GetProperties(Attribute[] attributes)
         {
             if (_propDescCol == null)
@@ -115,6 +148,7 @@ namespace DataWindow.CustomPropertys
                     _propDescCol.Add(new CustomPropertyDescriptor(prop, attrs.ToArray(), cp));
                 }
 
+                CustomAddProperties(_propDescCol);
                 //foreach (CustomProperty cp in this)
                 //{
                 //    List<Attribute> attrs = new List<Attribute>();
@@ -181,6 +215,7 @@ namespace DataWindow.CustomPropertys
 
                     _propDescCol.Add(new CustomPropertyDescriptor(prop, attrs.ToArray(), cp));
                 }
+                CustomAddProperties(_propDescCol);
             }
 
             return _propDescCol;

@@ -191,7 +191,7 @@ namespace DataWindow.DesignLayer
 
         public void AddCategory(string name, ToolboxCategoryState toolboxCategoryState = ToolboxCategoryState.Expanded)
         {
-            var toolboxBaseItem = new ToolboxBaseItem(name, name, 2, true);
+            var toolboxBaseItem = new ToolboxBaseItem(name, name, toolboxCategoryState == ToolboxCategoryState.Expanded ? 2 : 1, true);
             toolboxBaseItem.Tag = toolboxCategoryState;
             var toolboxPointerItem = new ToolboxPointerItem(0);
             var items = _listbox.Items;

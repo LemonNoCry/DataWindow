@@ -47,8 +47,8 @@ namespace DataWindow.DesignLayer
         [ReadOnly(true)]
         public string LayoutXml
         {
-            get => this.designer.LayoutXML;
-            set => this.designer.LayoutXML = value;
+            get => this.designer.LayoutXml;
+            set => this.designer.LayoutXml = value;
         }
 
         /// <summary>

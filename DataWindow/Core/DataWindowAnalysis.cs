@@ -77,7 +77,7 @@ namespace DataWindow.Core
             designer.DesignerLoader = defaultDesignerLoader;
             designer.DesignedForm = control;
 
-            designer.LayoutXML = xml;
+            designer.LayoutXml = xml;
         }
 
         /// <summary>
@@ -92,7 +92,7 @@ namespace DataWindow.Core
             designer.DesignerLoader = defaultDesignerLoader;
             designer.DesignContainer = control;
 
-            return designer.LayoutXML;
+            return designer.LayoutXml;
         }
 
         //public static void ResolveToOverlayer(ControlSerializable cs, Overlayer overlayer)

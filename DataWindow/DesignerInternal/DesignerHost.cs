@@ -740,8 +740,7 @@ namespace DataWindow.DesignerInternal
             }
 
             var loadComplete = LoadComplete;
-            if (loadComplete == null) return;
-            loadComplete(this, EventArgs.Empty);
+            loadComplete?.Invoke(this, EventArgs.Empty);
         }
 
         internal Control CreateDesignSurface(Type rootType)

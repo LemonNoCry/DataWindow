@@ -240,7 +240,7 @@ namespace DataWindow.DesignLayer
         [Browsable(false)]
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
         [DefaultValue(null)]
-        public string LayoutXML
+        public string LayoutXml
         {
             get
             {
@@ -340,6 +340,10 @@ namespace DataWindow.DesignLayer
 
         private T GetDesignerOption<T>(string name)
         {
+            if (_designerHost==null)
+            {
+                return default;
+            }
             return (T) ((DesignerOptionService) _designerHost.GetService(typeof(DesignerOptionService))).Options.Properties[name].GetValue(null);
         }
 

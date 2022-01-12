@@ -95,10 +95,13 @@ namespace DataWindow.DesignLayer
         {
             var selectionService = _designer.SelectionService;
             if (comboBox.SelectedItem != null)
+            {
                 selectionService.SetSelectedComponents(new[]
                 {
                     comboBox.SelectedItem
                 });
+                Designer.DesignedForm.Focus();
+            }
         }
 
         public void SetComponents(ComponentCollection components)
@@ -165,7 +168,6 @@ namespace DataWindow.DesignLayer
             this.Name = "PropertyboxControl";
             this.Size = new System.Drawing.Size(288, 433);
             this.ResumeLayout(false);
-
         }
     }
 }
