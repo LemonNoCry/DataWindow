@@ -16,6 +16,7 @@ using System.Linq;
 using System.Reflection;
 using System.Windows.Forms;
 using System.Windows.Forms.Design;
+using DataWindow.Serialization.Components;
 
 namespace DataWindow.DesignerInternal
 {
@@ -198,6 +199,11 @@ namespace DataWindow.DesignerInternal
         {
             if (component != null && !_designStopped && (component.Site == null || component.Site.Container != this) && (AllowDesign == null || AllowDesign(component)))
             {
+                if (component is Designer || component is DefaultDesignerLoader)
+                {
+                    return;
+                }
+
                 if (component is Control) Parents[component] = ((Control) component).Parent;
                 WriteToLog("添加组件 {0}", name == null ? "" : name);
                 var designerTransaction = CreateTransaction("Add component");
@@ -663,6 +669,7 @@ namespace DataWindow.DesignerInternal
                 _designSurface.Parent = DesignContainer;
             }
 
+            _designSurface.Controls.Clear();
             Add(_designSurface, _designSurface.Name);
             if (DesignContainer != null) _designedForm.CopyPropertiesTo(_designSurface);
             var rootDesigner = (IRootDesigner) GetDesigner(_designSurface);
@@ -745,13 +752,25 @@ namespace DataWindow.DesignerInternal
 
         internal Control CreateDesignSurface(Type rootType)
         {
-            if (UseNativeType)
+            try
             {
                 var obj = Activator.CreateInstance(rootType);
                 Form form;
                 if ((form = obj as Form) != null) form.TopLevel = false;
                 return (Control) obj;
             }
+            catch (Exception e)
+            {
+                Console.WriteLine(e.Message);
+            }
+
+            //if (UseNativeType)
+            //{
+            //    var obj = Activator.CreateInstance(rootType);
+            //    Form form;
+            //    if ((form = obj as Form) != null) form.TopLevel = false;
+            //    return (Control) obj;
+            //}
 
             if (typeof(Form).IsAssignableFrom(rootType))
             {

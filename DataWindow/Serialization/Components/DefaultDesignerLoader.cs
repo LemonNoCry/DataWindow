@@ -12,6 +12,7 @@ using System.Reflection;
 using System.Runtime.Serialization.Formatters.Binary;
 using System.Text;
 using System.Windows.Forms;
+using DataWindow.Core;
 using DataWindow.DesignerInternal;
 using DataWindow.Utility;
 
@@ -1500,6 +1501,16 @@ namespace DataWindow.Serialization.Components
                 return obj;
             }
 
+            if (parent is IBaseDataWindow bdw)
+            {
+                obj = bdw.GetInherentControl(text);
+                if (obj != null)
+                {
+                    finded = true;
+                    return obj;
+                }
+            }
+
             var flag = LoadMode != LoadModes.ModifyExisting;
             if (LoadMode == LoadModes.ModifyExisting)
             {
@@ -1507,6 +1518,7 @@ namespace DataWindow.Serialization.Components
                 if (type2 != null) flag = !typeof(IComponent).IsAssignableFrom(type2);
             }
 
+           
             if (flag) obj = CreateObject(type, text, true);
             return obj;
         }

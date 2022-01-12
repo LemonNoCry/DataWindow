@@ -20,10 +20,15 @@ namespace DataWindow.Windows
         private ToolStripButton tbDelete;
         private Designer activeDesigner;
 
+        public Control DesignerControl { get; set; }
+        public Designer CurrentDesigner { get; set; }
+
         /// <summary>
         /// 是否可以多窗口
         /// </summary>
         public bool IsMultiple { get; set; } = false;
+
+        public string DefaultLayoutXml { get; set; }
 
         public DataWindowDesigner()
         {
@@ -43,10 +48,12 @@ namespace DataWindow.Windows
             EnableUndoRedo();
         }
 
-        public static void DesignerLayout(Control control)
+        public static void DesignerLayout(Control control, Designer designer)
         {
             DataWindowDesigner dwd = new DataWindowDesigner();
-            dwd.NewDesignedForm(control);
+            dwd.DesignerControl = control;
+            dwd.CurrentDesigner = designer;
+            dwd.NewDesignedForm(dwd.DesignerControl);
             dwd.ShowDialog();
         }
 
@@ -66,16 +73,24 @@ namespace DataWindow.Windows
         private void NewDesignedForm()
         {
             OnlyOrMultipleOpen();
-            string name = "from " + (this.dockPanel.DocumentsCount + 1);
-            var rootType = typeof(CustomForm);
 
-            var doc = new DesignerDocument(name, rootType);
-            NewDesignerDocument(doc);
+            CustomForm cf = new CustomForm();
+            cf.Name = nameof(CustomForm);
+
+            DesignerControl = cf;
+            CurrentDesigner = cf.designer;
+
+            DefaultLayoutXml = cf.GetLayoutXml();
+
+            NewDesignedForm(cf);
+            //cf.designer.DesignerHost.Parents.Clear();
+            //this.activeDesigner.InitLayout(DefaultLayoutXml);
         }
 
         private void NewDesignedForm(Control control)
         {
             OnlyOrMultipleOpen();
+
             var doc = new DesignerDocument(control);
             NewDesignerDocument(doc);
         }
@@ -411,6 +426,18 @@ namespace DataWindow.Windows
         private void tbLock_Click(object sender, EventArgs e)
         {
             this.activeDesigner.Lock();
+        }
+
+        private void tsmiResetDefault_Click(object sender, EventArgs e)
+        {
+            if (string.IsNullOrWhiteSpace(DefaultLayoutXml))
+            {
+                MessageBox.Show("不存在默认界面布局");
+                return;
+            }
+
+            activeDesigner.DeleteAllComponents();
+            activeDesigner.LayoutXml = DefaultLayoutXml;
         }
 
         #endregion

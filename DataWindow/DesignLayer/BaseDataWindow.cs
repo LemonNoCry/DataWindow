@@ -29,7 +29,7 @@ namespace DataWindow.DesignLayer
     /// 1.直接使用[Browsable(true)][DisplayNameAttribute][DescriptionAttribute]等<br/>
     /// 2.继承当前控件的父类Serialization，GetCollections()中添加本地化翻译<br/>
     /// </summary>
-    public class BaseDataWindow : Form
+    public class BaseDataWindow : Form, IBaseDataWindow
     {
         public BaseDataWindow()
         {
@@ -38,18 +38,10 @@ namespace DataWindow.DesignLayer
             designer.DesignerHost.UseNativeType = true;
         }
 
-        [Browsable(false)]
-        [ReadOnly(true)]
-        public string DefaultXml { get; set; }
 
-        [Browsable(false)]
-        [XmlIgnore]
-        [ReadOnly(true)]
-        public string LayoutXml
-        {
-            get => this.designer.LayoutXml;
-            set => this.designer.LayoutXml = value;
-        }
+        private string lazyLoadLayoutXml;
+
+        private string defaultXml;
 
         /// <summary>
         /// 控件必须
@@ -78,6 +70,11 @@ namespace DataWindow.DesignLayer
         public void AddMustControls(params Control[] cons)
         {
             MustEditControls.AddRange(cons);
+        }
+
+        public List<Control> GetMustEditControls()
+        {
+            return MustEditControls;
         }
 
         /// <summary>
@@ -110,6 +107,63 @@ namespace DataWindow.DesignLayer
             return flag;
         }
 
+        public bool IsMustControl(string name)
+        {
+            var con = MustEditControls.FirstOrDefault(s => s.Name.Equals(name));
+            if (con == null)
+            {
+                return false;
+            }
+
+            return IsMustControl(con);
+        }
+
+        public List<Control> GetProhibitEditControls()
+        {
+            return ProhibitEditControls;
+        }
+
+
+        public Designer GetDesigner()
+        {
+            return designer;
+        }
+
+        public DefaultDesignerLoader GetDefaultDesignerLoader()
+        {
+            return defaultDesignerLoader;
+        }
+
+        public void SetDefaultLayoutXml(string xml)
+        {
+            defaultXml = xml;
+        }
+
+        public string GetDefaultLayoutXml()
+        {
+            return defaultXml;
+        }
+
+        public void SetLayoutXml(string xml)
+        {
+            designer.LayoutXml = xml;
+        }
+
+        public void SetLazyLayoutXml(string xml)
+        {
+            lazyLoadLayoutXml = xml;
+        }
+
+        public string GetLayoutXml()
+        {
+            return designer.LayoutXml;
+        }
+
+        public List<Control> GetInherentControls()
+        {
+            return InherentControls;
+        }
+
         public bool IsInherentControl(Control con)
         {
             return InherentControls.Contains(con);
@@ -120,6 +174,22 @@ namespace DataWindow.DesignLayer
             return ProhibitEditControls.Contains(con);
         }
 
+        public bool IsProhibitEditControl(string name)
+        {
+            var con = ProhibitEditControls.FirstOrDefault(s => s.Name.Equals(name));
+            if (con == null)
+            {
+                return false;
+            }
+
+            return IsProhibitEditControl(con);
+        }
+
+        public Dictionary<Control, string> GetControlTranslation()
+        {
+            return ControlTranslation;
+        }
+
         public Control GetInherentControl(string name)
         {
             return InherentControls.SingleOrDefault(s => s.Name.Equals(name));
@@ -128,11 +198,16 @@ namespace DataWindow.DesignLayer
         protected override void OnLoad(EventArgs e)
         {
             base.OnLoad(e);
-            EachDataWindowControls(this, c =>
+            EachDataWindowControls(this, c => { InherentControls.Add(c); });
+        }
+
+        protected override void OnShown(EventArgs e)
+        {
+            base.OnShown(e);
+            if (!string.IsNullOrWhiteSpace(lazyLoadLayoutXml))
             {
-                InherentControls.Add(c);
-                ProhibitedOperationControl(c);
-            });
+                designer.LayoutXml = lazyLoadLayoutXml;
+            }
         }
 
         public void EachDataWindowControls(Control control, Action<Control> action)
@@ -144,14 +219,6 @@ namespace DataWindow.DesignLayer
                 {
                     EachDataWindowControls(con, action);
                 }
-            }
-        }
-
-        public void ProhibitedOperationControl(Control con)
-        {
-            if (con is ToolStrip ts)
-            {
-                ProhibitEditControls.Add(ts);
             }
         }
 

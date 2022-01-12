@@ -1,7 +1,9 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
+using DataWindow.DesignerInternal;
 using DataWindow.DesignLayer;
 using DataWindow.Serialization;
 using DataWindow.Serialization.Components;
@@ -163,6 +165,40 @@ namespace DataWindow.Core
         //        }
         //    }
         //}
+
+        #endregion
+
+        #region 初始化DataWindow
+
+        public static void EachDataWindowControls(this Control control, Action<Control> action)
+        {
+            foreach (Control con in control.Controls)
+            {
+                action?.Invoke(con);
+                if (con.HasChildren)
+                {
+                    EachDataWindowControls(con, action);
+                }
+            }
+        }
+
+        public static void CreateSite(DesignerHost host, Control control)
+        {
+            var designerSite = new DesignerSite(host, control);
+            designerSite.Name = control.Name;
+
+            control.Site = designerSite;
+        }
+
+        public static void InitAllControls(BaseDataWindow bdw)
+        {
+            if (bdw.Controls.Count < 1)
+            {
+                return;
+            }
+
+            EachDataWindowControls(bdw, (c) => { });
+        }
 
         #endregion
     }

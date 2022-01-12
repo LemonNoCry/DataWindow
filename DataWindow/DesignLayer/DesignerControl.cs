@@ -26,6 +26,9 @@ namespace DataWindow.DesignLayer
 
         public DesignerControl(BaseDataWindow root) : this()
         {
+            Designer.Dispose();
+            defaultDesignerLoader.Dispose();
+
             defaultDesignerLoader = root.defaultDesignerLoader;
             Designer = root.designer;
             DesignedForm = root;
@@ -51,9 +54,6 @@ namespace DataWindow.DesignLayer
             if (DesignedForm != null) Designer.Active = true;
         }
 
-        public void button1_Click(object sender, EventArgs e)
-        {
-        }
 
         protected override void Dispose(bool disposing)
         {

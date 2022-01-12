@@ -14,6 +14,7 @@ using System.Linq;
 using System.Windows.Forms;
 using System.Windows.Forms.Design;
 using System.Xml;
+using DataWindow.Core;
 
 namespace DataWindow.DesignLayer
 {
@@ -340,10 +341,11 @@ namespace DataWindow.DesignLayer
 
         private T GetDesignerOption<T>(string name)
         {
-            if (_designerHost==null)
+            if (_designerHost == null)
             {
                 return default;
             }
+
             return (T) ((DesignerOptionService) _designerHost.GetService(typeof(DesignerOptionService))).Options.Properties[name].GetValue(null);
         }
 
@@ -380,6 +382,11 @@ namespace DataWindow.DesignLayer
             {
                 NoDesignerLoaderControl();
                 return false;
+            }
+
+            if (_designerHost.DesignedForm.HasChildren)
+            {
+                _designerHost.DesignedForm.Controls.Clear();
             }
 
             _designerLoader.Components = _designerHost.GetService(typeof(FormComponents)) as FormComponents;
@@ -613,11 +620,26 @@ namespace DataWindow.DesignLayer
             var selectedComponents = selectionService.GetSelectedComponents();
             using (var designerTransaction = _designerHost.CreateTransaction("Delete selected"))
             {
+                IBaseDataWindow bdw = DesignedForm as IBaseDataWindow;
                 foreach (var obj in selectedComponents)
                 {
                     var component = (IComponent) obj;
                     try
                     {
+                        if (bdw != null)
+                        {
+                            if (bdw.IsMustControl(component.Site.Name))
+                            {
+                                if (selectedComponents.Count == 1)
+                                {
+                                    MessageBox.Show("当前控件不允许删除");
+                                    return;
+                                }
+
+                                continue;
+                            }
+                        }
+
                         if (component != _designerHost.RootComponent)
                         {
                             _designerHost.Remove(component);
@@ -626,6 +648,35 @@ namespace DataWindow.DesignLayer
                     }
                     catch (Exception)
                     {
+                    }
+                }
+
+                designerTransaction.Commit();
+            }
+        }
+
+        public void DeleteAllComponents()
+        {
+            if (!_active) return;
+            using (var designerTransaction = _designerHost.CreateTransaction("Delete selected"))
+            {
+                foreach (var obj in _designerHost.Components)
+                {
+                    var component = (IComponent) obj;
+
+                    if (_designerHost.Parents[component] == null)
+                    {
+                        try
+                        {
+                            if (component != _designerHost.RootComponent)
+                            {
+                                _designerHost.Remove(component);
+                                component.Dispose();
+                            }
+                        }
+                        catch (Exception)
+                        {
+                        }
                     }
                 }
 
@@ -714,16 +765,20 @@ namespace DataWindow.DesignLayer
 
             using (var designerTransaction = _designerHost.CreateTransaction("Locked"))
             {
-                foreach (Control control in selectedComponents)
+                foreach (var component in selectedComponents)
                 {
-                    PropertyDescriptorCollection baseProps = TypeDescriptor.GetProperties(control, true);
+                    PropertyDescriptorCollection baseProps = TypeDescriptor.GetProperties(component, true);
                     var pd = baseProps.Find("Locked", true);
+                    if (pd == null)
+                    {
+                        continue;
+                    }
 
-                    var locked = (bool) pd.GetValue(control);
+                    var locked = (bool) pd.GetValue(component);
 
-                    componentChangeService.OnComponentChanging(control, pd);
-                    pd.SetValue(control, !locked);
-                    componentChangeService.OnComponentChanged(control, pd, locked, !locked);
+                    componentChangeService.OnComponentChanging(component, pd);
+                    pd.SetValue(component, !locked);
+                    componentChangeService.OnComponentChanged(component, pd, locked, !locked);
                 }
 
                 designerTransaction.Commit();

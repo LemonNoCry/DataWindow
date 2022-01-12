@@ -65,12 +65,14 @@ namespace DataWindow.Windows
             this.miPaste = new System.Windows.Forms.ToolStripMenuItem();
             this.miDeleteSelection = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
-            this.menuItem4 = new System.Windows.Forms.ToolStripMenuItem();
             this.tsmiResetLayout = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItem2 = new System.Windows.Forms.ToolStripSeparator();
             this.tsmiPropertyGrid = new System.Windows.Forms.ToolStripMenuItem();
             this.tsmiFullProperty = new System.Windows.Forms.ToolStripMenuItem();
             this.tsmiLocalizationProperty = new System.Windows.Forms.ToolStripMenuItem();
+            this.menuItem4 = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripMenuItem1 = new System.Windows.Forms.ToolStripSeparator();
+            this.tsmiResetDefault = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStrip.SuspendLayout();
             this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
@@ -356,7 +358,7 @@ namespace DataWindow.Windows
             // 
             this.miNewForm.Name = "miNewForm";
             this.miNewForm.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.N)));
-            this.miNewForm.Size = new System.Drawing.Size(165, 22);
+            this.miNewForm.Size = new System.Drawing.Size(180, 22);
             this.miNewForm.Text = "新建(&N)";
             this.miNewForm.Click += new System.EventHandler(this.miNewForm_Click);
             // 
@@ -364,7 +366,7 @@ namespace DataWindow.Windows
             // 
             this.miOpenForm.Name = "miOpenForm";
             this.miOpenForm.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.O)));
-            this.miOpenForm.Size = new System.Drawing.Size(165, 22);
+            this.miOpenForm.Size = new System.Drawing.Size(180, 22);
             this.miOpenForm.Text = "打开(&O)";
             this.miOpenForm.Click += new System.EventHandler(this.miOpenForm_Click);
             // 
@@ -372,20 +374,20 @@ namespace DataWindow.Windows
             // 
             this.miSaveForm.Name = "miSaveForm";
             this.miSaveForm.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.S)));
-            this.miSaveForm.Size = new System.Drawing.Size(165, 22);
+            this.miSaveForm.Size = new System.Drawing.Size(180, 22);
             this.miSaveForm.Text = "保存(&S)";
             this.miSaveForm.Click += new System.EventHandler(this.miSaveForm_Click);
             // 
             // menuItem6
             // 
             this.menuItem6.Name = "menuItem6";
-            this.menuItem6.Size = new System.Drawing.Size(162, 6);
+            this.menuItem6.Size = new System.Drawing.Size(177, 6);
             // 
             // miExitDesigner
             // 
             this.miExitDesigner.Name = "miExitDesigner";
             this.miExitDesigner.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.X)));
-            this.miExitDesigner.Size = new System.Drawing.Size(165, 22);
+            this.miExitDesigner.Size = new System.Drawing.Size(180, 22);
             this.miExitDesigner.Text = "退出(&X)";
             this.miExitDesigner.Click += new System.EventHandler(this.miExitDesigner_Click);
             // 
@@ -400,7 +402,9 @@ namespace DataWindow.Windows
             this.menuItem14,
             this.miCopy,
             this.miPaste,
-            this.miDeleteSelection});
+            this.miDeleteSelection,
+            this.toolStripMenuItem1,
+            this.tsmiResetDefault});
             this.menuItem2.Name = "menuItem2";
             this.menuItem2.Size = new System.Drawing.Size(59, 21);
             this.menuItem2.Text = "编辑(&E)";
@@ -409,7 +413,7 @@ namespace DataWindow.Windows
             // 
             this.miUndo.Name = "miUndo";
             this.miUndo.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.Z)));
-            this.miUndo.Size = new System.Drawing.Size(162, 22);
+            this.miUndo.Size = new System.Drawing.Size(180, 22);
             this.miUndo.Text = "撤销(&U)";
             this.miUndo.Click += new System.EventHandler(this.miUndo_Click);
             // 
@@ -417,14 +421,14 @@ namespace DataWindow.Windows
             // 
             this.miRedo.Name = "miRedo";
             this.miRedo.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.Y)));
-            this.miRedo.Size = new System.Drawing.Size(162, 22);
+            this.miRedo.Size = new System.Drawing.Size(180, 22);
             this.miRedo.Text = "重做(&R)";
             this.miRedo.Click += new System.EventHandler(this.miRedo_Click);
             // 
             // menuItem11
             // 
             this.menuItem11.Name = "menuItem11";
-            this.menuItem11.Size = new System.Drawing.Size(159, 6);
+            this.menuItem11.Size = new System.Drawing.Size(177, 6);
             // 
             // menuItem8
             // 
@@ -437,7 +441,7 @@ namespace DataWindow.Windows
             this.miAlignCenter,
             this.miAlignRight});
             this.menuItem8.Name = "menuItem8";
-            this.menuItem8.Size = new System.Drawing.Size(162, 22);
+            this.menuItem8.Size = new System.Drawing.Size(180, 22);
             this.menuItem8.Text = "对齐(&A)";
             // 
             // miAlignTop
@@ -495,7 +499,7 @@ namespace DataWindow.Windows
             this.menuItem13,
             this.miSameBoth});
             this.menuItem9.Name = "menuItem9";
-            this.menuItem9.Size = new System.Drawing.Size(162, 22);
+            this.menuItem9.Size = new System.Drawing.Size(180, 22);
             this.menuItem9.Text = "使用相同(&M)";
             // 
             // miSameHeight
@@ -527,13 +531,13 @@ namespace DataWindow.Windows
             // menuItem14
             // 
             this.menuItem14.Name = "menuItem14";
-            this.menuItem14.Size = new System.Drawing.Size(159, 6);
+            this.menuItem14.Size = new System.Drawing.Size(177, 6);
             // 
             // miCopy
             // 
             this.miCopy.Name = "miCopy";
             this.miCopy.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.C)));
-            this.miCopy.Size = new System.Drawing.Size(162, 22);
+            this.miCopy.Size = new System.Drawing.Size(180, 22);
             this.miCopy.Text = "复制(&C)";
             this.miCopy.Click += new System.EventHandler(this.miCopy_Click);
             // 
@@ -541,7 +545,7 @@ namespace DataWindow.Windows
             // 
             this.miPaste.Name = "miPaste";
             this.miPaste.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.V)));
-            this.miPaste.Size = new System.Drawing.Size(162, 22);
+            this.miPaste.Size = new System.Drawing.Size(180, 22);
             this.miPaste.Text = "粘贴(&P)";
             this.miPaste.Click += new System.EventHandler(this.miPaste_Click);
             // 
@@ -549,7 +553,7 @@ namespace DataWindow.Windows
             // 
             this.miDeleteSelection.Name = "miDeleteSelection";
             this.miDeleteSelection.ShortcutKeys = System.Windows.Forms.Keys.Delete;
-            this.miDeleteSelection.Size = new System.Drawing.Size(162, 22);
+            this.miDeleteSelection.Size = new System.Drawing.Size(180, 22);
             this.miDeleteSelection.Text = "删除(&D)";
             this.miDeleteSelection.Click += new System.EventHandler(this.miDeleteSelection_Click);
             // 
@@ -565,6 +569,41 @@ namespace DataWindow.Windows
             this.menuStrip1.TabIndex = 10;
             this.menuStrip1.Text = "menuStrip1";
             // 
+            // tsmiResetLayout
+            // 
+            this.tsmiResetLayout.Name = "tsmiResetLayout";
+            this.tsmiResetLayout.Size = new System.Drawing.Size(180, 22);
+            this.tsmiResetLayout.Text = "重置布局";
+            this.tsmiResetLayout.Click += new System.EventHandler(this.tsmiResetLayout_Click);
+            // 
+            // toolStripMenuItem2
+            // 
+            this.toolStripMenuItem2.Name = "toolStripMenuItem2";
+            this.toolStripMenuItem2.Size = new System.Drawing.Size(177, 6);
+            // 
+            // tsmiPropertyGrid
+            // 
+            this.tsmiPropertyGrid.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.tsmiFullProperty,
+            this.tsmiLocalizationProperty});
+            this.tsmiPropertyGrid.Name = "tsmiPropertyGrid";
+            this.tsmiPropertyGrid.Size = new System.Drawing.Size(180, 22);
+            this.tsmiPropertyGrid.Text = "属性网格";
+            // 
+            // tsmiFullProperty
+            // 
+            this.tsmiFullProperty.Name = "tsmiFullProperty";
+            this.tsmiFullProperty.Size = new System.Drawing.Size(180, 22);
+            this.tsmiFullProperty.Text = "显示完整属性";
+            this.tsmiFullProperty.Click += new System.EventHandler(this.tsmiFullProperty_Click);
+            // 
+            // tsmiLocalizationProperty
+            // 
+            this.tsmiLocalizationProperty.Name = "tsmiLocalizationProperty";
+            this.tsmiLocalizationProperty.Size = new System.Drawing.Size(180, 22);
+            this.tsmiLocalizationProperty.Text = "显示本地化属性";
+            this.tsmiLocalizationProperty.Click += new System.EventHandler(this.tsmiLocalizationProperty_Click);
+            // 
             // menuItem4
             // 
             this.menuItem4.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
@@ -575,40 +614,17 @@ namespace DataWindow.Windows
             this.menuItem4.Size = new System.Drawing.Size(60, 21);
             this.menuItem4.Text = "布局(&V)";
             // 
-            // tsmiResetLayout
+            // toolStripMenuItem1
             // 
-            this.tsmiResetLayout.Name = "tsmiResetLayout";
-            this.tsmiResetLayout.Size = new System.Drawing.Size(124, 22);
-            this.tsmiResetLayout.Text = "重置布局";
-            this.tsmiResetLayout.Click += new System.EventHandler(this.tsmiResetLayout_Click);
+            this.toolStripMenuItem1.Name = "toolStripMenuItem1";
+            this.toolStripMenuItem1.Size = new System.Drawing.Size(177, 6);
             // 
-            // toolStripMenuItem2
+            // tsmiResetDefault
             // 
-            this.toolStripMenuItem2.Name = "toolStripMenuItem2";
-            this.toolStripMenuItem2.Size = new System.Drawing.Size(121, 6);
-            // 
-            // tsmiPropertyGrid
-            // 
-            this.tsmiPropertyGrid.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.tsmiFullProperty,
-            this.tsmiLocalizationProperty});
-            this.tsmiPropertyGrid.Name = "tsmiPropertyGrid";
-            this.tsmiPropertyGrid.Size = new System.Drawing.Size(124, 22);
-            this.tsmiPropertyGrid.Text = "属性网格";
-            // 
-            // tsmiFullProperty
-            // 
-            this.tsmiFullProperty.Name = "tsmiFullProperty";
-            this.tsmiFullProperty.Size = new System.Drawing.Size(160, 22);
-            this.tsmiFullProperty.Text = "显示完整属性";
-            this.tsmiFullProperty.Click += new System.EventHandler(this.tsmiFullProperty_Click);
-            // 
-            // tsmiLocalizationProperty
-            // 
-            this.tsmiLocalizationProperty.Name = "tsmiLocalizationProperty";
-            this.tsmiLocalizationProperty.Size = new System.Drawing.Size(160, 22);
-            this.tsmiLocalizationProperty.Text = "显示本地化属性";
-            this.tsmiLocalizationProperty.Click += new System.EventHandler(this.tsmiLocalizationProperty_Click);
+            this.tsmiResetDefault.Name = "tsmiResetDefault";
+            this.tsmiResetDefault.Size = new System.Drawing.Size(180, 22);
+            this.tsmiResetDefault.Text = "重置默认界面";
+            this.tsmiResetDefault.Click += new System.EventHandler(this.tsmiResetDefault_Click);
             // 
             // DataWindowDesigner
             // 
@@ -690,12 +706,14 @@ namespace DataWindow.Windows
         private ToolStripSeparator menuItem12;
         private ToolStripButton tbLock;
         private ToolStripSeparator toolStripSeparator5;
+        private ToolStripSeparator menuItem13;
+        private ToolStripSeparator toolStripMenuItem1;
+        private ToolStripMenuItem tsmiResetDefault;
         private ToolStripMenuItem menuItem4;
         private ToolStripMenuItem tsmiResetLayout;
         private ToolStripSeparator toolStripMenuItem2;
         private ToolStripMenuItem tsmiPropertyGrid;
         private ToolStripMenuItem tsmiFullProperty;
         private ToolStripMenuItem tsmiLocalizationProperty;
-        private ToolStripSeparator menuItem13;
     }
 }

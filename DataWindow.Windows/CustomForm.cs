@@ -8,13 +8,20 @@ namespace DataWindow.Windows
 {
     public partial class CustomForm : BaseDataWindow
     {
+        private Button btnLogin;
+        private TextBox tbAccount;
+        private Label lblAccount;
+
         public CustomForm()
         {
             InitializeComponent();
+            Init();
         }
 
-        private Button button1;
-
+        private void Init()
+        {
+            AddMustControls(btnLogin);
+        }
         // public 设计时事件可选
         public void button1_Click(object sender, EventArgs e)
         {
@@ -28,25 +35,52 @@ namespace DataWindow.Windows
 
         private void InitializeComponent()
         {
-            this.button1 = new System.Windows.Forms.Button();
+            this.btnLogin = new System.Windows.Forms.Button();
+            this.tbAccount = new System.Windows.Forms.TextBox();
+            this.lblAccount = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
-            // button1
+            // btnLogin
             // 
-            this.button1.Location = new System.Drawing.Point(35, 30);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(75, 23);
-            this.button1.TabIndex = 0;
-            this.button1.Text = "button1";
-            this.button1.UseVisualStyleBackColor = true;
+            this.btnLogin.Location = new System.Drawing.Point(143, 149);
+            this.btnLogin.Name = "btnLogin";
+            this.btnLogin.Size = new System.Drawing.Size(75, 23);
+            this.btnLogin.TabIndex = 0;
+            this.btnLogin.Text = "登录";
+            this.btnLogin.UseVisualStyleBackColor = true;
+            this.btnLogin.Click += new System.EventHandler(this.btnLogin_Click);
+            // 
+            // tbAccount
+            // 
+            this.tbAccount.Location = new System.Drawing.Point(172, 80);
+            this.tbAccount.Name = "tbAccount";
+            this.tbAccount.Size = new System.Drawing.Size(100, 21);
+            this.tbAccount.TabIndex = 1;
+            // 
+            // lblAccount
+            // 
+            this.lblAccount.AutoSize = true;
+            this.lblAccount.Location = new System.Drawing.Point(116, 83);
+            this.lblAccount.Name = "lblAccount";
+            this.lblAccount.Size = new System.Drawing.Size(29, 12);
+            this.lblAccount.TabIndex = 2;
+            this.lblAccount.Text = "账号";
             // 
             // CustomForm
             // 
-            this.ClientSize = new System.Drawing.Size(784, 561);
-            this.Controls.Add(this.button1);
+            this.ClientSize = new System.Drawing.Size(588, 396);
+            this.Controls.Add(this.lblAccount);
+            this.Controls.Add(this.tbAccount);
+            this.Controls.Add(this.btnLogin);
             this.Name = "CustomForm";
             this.ResumeLayout(false);
+            this.PerformLayout();
 
+        }
+
+        private void btnLogin_Click(object sender, EventArgs e)
+        {
+            MessageBox.Show("Hello");
         }
     }
 }
