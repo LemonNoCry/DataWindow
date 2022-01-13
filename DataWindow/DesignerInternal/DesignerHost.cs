@@ -206,6 +206,7 @@ namespace DataWindow.DesignerInternal
                     return;
                 }
 
+
                 if (component is Control) Parents[component] = ((Control) component).Parent;
                 WriteToLog("添加组件 {0}", name == null ? "" : name);
                 var designerTransaction = CreateTransaction("Add component");
@@ -218,7 +219,7 @@ namespace DataWindow.DesignerInternal
                     designerSite.Name = name;
                     component.GetType().ToString().ToUpper();
                     component.Site = designerSite;
-
+                    
                     TabControl tabControl;
                     if ((tabControl = component as TabControl) != null)
                     {
@@ -248,6 +249,7 @@ namespace DataWindow.DesignerInternal
                         var componentAdding = ComponentAdding;
                         if (componentAdding != null) componentAdding(this, new ComponentEventArgs(component));
                         designerSite.Designer = designer;
+                        
                         _sites.Add(component, designerSite);
                         try
                         {
@@ -450,7 +452,7 @@ namespace DataWindow.DesignerInternal
 
         public bool HasComponent(string name)
         {
-            return Components.Cast<IComponent>().Any(s => s.Site.Name.Equals(name));
+            return Components.Cast<IComponent>().Any(s => s.Site != null && s.Site.Name.Equals(name));
         }
 
         public void DestroyComponent(IComponent component)
@@ -858,6 +860,7 @@ namespace DataWindow.DesignerInternal
                     control.Parent = parent;
                     control.Parent = null;
                     Add(control, control.Name);
+
                     var property = control.GetProperty<string>("Text");
                     ComponentDesigner componentDesigner;
                     if ((componentDesigner = GetDesigner(control) as ComponentDesigner) != null)
