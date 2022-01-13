@@ -121,6 +121,11 @@ namespace DataWindow.DesignLayer
             return ProhibitEditControls;
         }
 
+        public void AddProhibitEditControls(params Control[] cons)
+        {
+            ProhibitEditControls.AddRange(cons);
+        }
+
 
         public Designer GetDesigner()
         {
@@ -178,6 +183,11 @@ namespace DataWindow.DesignLayer
             return ProhibitEditControls.Contains(con);
         }
 
+        public Control GetProhibitEditControl(string name)
+        {
+            return ProhibitEditControls.FirstOrDefault(s => s.Name.Equals(name));
+        }
+
         public bool IsProhibitEditControl(string name)
         {
             var con = ProhibitEditControls.FirstOrDefault(s => s.Name.Equals(name));
@@ -192,6 +202,14 @@ namespace DataWindow.DesignLayer
         public Dictionary<Control, string> GetControlTranslation()
         {
             return ControlTranslation;
+        }
+
+        public void AddControlTranslation(IDictionary<Control, string> translation)
+        {
+            foreach (var key in translation)
+            {
+                ControlTranslation.Add(key.Key, key.Value);
+            }
         }
 
         public Control GetInherentControl(string name)

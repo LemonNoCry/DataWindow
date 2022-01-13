@@ -384,7 +384,7 @@ namespace DataWindow.DesignLayer
                 return false;
             }
 
-            if ( _designerHost.DesignedForm.HasChildren)
+            if (_designerHost.DesignedForm.HasChildren)
             {
                 _designerHost.DesignedForm.Controls.Clear();
             }

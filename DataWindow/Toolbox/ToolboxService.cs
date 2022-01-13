@@ -100,6 +100,7 @@ namespace DataWindow.Toolbox
 
         public ToolboxItem DeserializeToolboxItem(object serializedObject, IDesignerHost host)
         {
+            Console.WriteLine(1);
             var dataObject = serializedObject as IDataObject;
             var typeFromHandle = typeof(ToolboxItem);
             foreach (var text in dataObject.GetFormats())
@@ -208,12 +209,12 @@ namespace DataWindow.Toolbox
 
         public void RemoveToolboxItem(ToolboxItem toolboxItem, string category)
         {
-            _toolbox.RemoveItem((ToolboxItem)toolboxItem, category);
+            _toolbox.RemoveItem((ToolboxItem) toolboxItem, category);
         }
 
         public void RemoveToolboxItem(ToolboxItem toolboxItem)
         {
-            _toolbox.RemoveItem((ToolboxItem)toolboxItem, null);
+            _toolbox.RemoveItem((ToolboxItem) toolboxItem, null);
         }
 
         public void SelectedToolboxItemUsed()
@@ -251,7 +252,7 @@ namespace DataWindow.Toolbox
 
         public void SetSelectedToolboxItem(ToolboxItem toolboxItem)
         {
-            _toolbox.SelectedItem = (ToolboxItem)toolboxItem;
+            _toolbox.SelectedItem = (ToolboxItem) toolboxItem;
         }
 
         public void AddDesigner(Designer designer)
@@ -290,7 +291,7 @@ namespace DataWindow.Toolbox
             if (selectedItem != null && (control = _toolbox as Control) != null)
             {
                 var data = (DataObject) SerializeToolboxItem(selectedItem);
-                control.DoDragDrop(data, DragDropEffects.Copy);
+                control.DoDragDrop(data, DragDropEffects.All);
             }
         }
 

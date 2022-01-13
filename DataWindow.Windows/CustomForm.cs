@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel;
 using System.Windows.Forms;
 using DataWindow.Core;
@@ -16,13 +17,18 @@ namespace DataWindow.Windows
         {
             InitializeComponent();
             Init();
-           
         }
 
         private void Init()
         {
             AddInherentControls();
             AddMustControls(btnLogin);
+            AddProhibitEditControls(tbAccount);
+
+            AddControlTranslation(new Dictionary<Control, string>()
+            {
+                {tbAccount, "账号输入框"}
+            });
         }
 
         // public 设计时事件可选

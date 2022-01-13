@@ -1,8 +1,10 @@
-﻿using System.Drawing;
+﻿using System;
+using System.Drawing;
 using System.Windows.Forms;
 using DataWindow.CustomPropertys;
 namespace DataWindow.Serialization
 {
+    [Serializable]
     public class LabelSerializable : ControlSerializable, IPropertyCollections<Label>
     {
         public ContentAlignment TextAlign { get; set; } = ContentAlignment.TopLeft;

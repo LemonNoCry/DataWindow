@@ -11,11 +11,13 @@ using System.ComponentModel.Design;
 using System.ComponentModel.Design.Serialization;
 using System.Data;
 using System.Drawing;
+using System.Drawing.Design;
 using System.IO;
 using System.Linq;
 using System.Reflection;
 using System.Windows.Forms;
 using System.Windows.Forms.Design;
+using DataWindow.Core;
 using DataWindow.Serialization.Components;
 
 namespace DataWindow.DesignerInternal
@@ -216,6 +218,7 @@ namespace DataWindow.DesignerInternal
                     designerSite.Name = name;
                     component.GetType().ToString().ToUpper();
                     component.Site = designerSite;
+
                     TabControl tabControl;
                     if ((tabControl = component as TabControl) != null)
                     {
@@ -430,7 +433,7 @@ namespace DataWindow.DesignerInternal
                 Add((component as SplitContainer).Panel1, null);
                 Add((component as SplitContainer).Panel2, null);
             }
-
+            
             Add(component, name);
             return component;
         }

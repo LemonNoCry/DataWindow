@@ -81,6 +81,7 @@
     <Compile Include="DesignLayer\localizationPropertyGrid.cs">
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="Toolbox\CustomToolboxItem.cs" />
     <Compile Include="Utility\ControlExtensions.cs" />
     <Compile Include="DesignLayer\PropertyboxControl.cs">
       <SubType>UserControl</SubType>

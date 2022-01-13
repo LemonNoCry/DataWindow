@@ -26,13 +26,18 @@ namespace DataWindow.Core
 
 
         List<Control> GetMustEditControls();
+        void AddMustControls(params Control[] cons);
         bool IsMustControl(Control control);
         bool IsMustControl(string name);
 
         List<Control> GetProhibitEditControls();
+        void AddProhibitEditControls(params Control[] cons);
         bool IsProhibitEditControl(Control con);
+        Control GetProhibitEditControl(string name);
         bool IsProhibitEditControl(string name);
 
+
         Dictionary<Control, string> GetControlTranslation();
+        void AddControlTranslation(IDictionary<Control, string> translation);
     }
 }

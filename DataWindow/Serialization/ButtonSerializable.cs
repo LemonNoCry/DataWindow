@@ -1,8 +1,10 @@
-﻿using System.Windows.Forms;
+﻿using System;
+using System.Windows.Forms;
 using DataWindow.CustomPropertys;
 
 namespace DataWindow.Serialization
 {
+    [Serializable]
     public class ButtonSerializable: ControlSerializable, IPropertyCollections<Button>
     {
         public override CustomPropertyCollection GetCollections(Control control)

@@ -1,7 +1,9 @@
-﻿using System.Windows.Forms;
+﻿using System;
+using System.Windows.Forms;
 using DataWindow.CustomPropertys;
 namespace DataWindow.Serialization
 {
+    [Serializable]
     public class CheckBoxSerializable: ControlSerializable, IPropertyCollections<CheckBox>
     {
         public override CustomPropertyCollection GetCollections(Control control)

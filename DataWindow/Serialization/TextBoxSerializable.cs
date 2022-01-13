@@ -1,8 +1,11 @@
-﻿using System.Windows.Forms;
+﻿using System;
+using System.Windows.Forms;
 using DataWindow.CustomPropertys;
+
 namespace DataWindow.Serialization
 {
-    public class TextBoxSerializable: ControlSerializable, IPropertyCollections<TextBox>
+    [Serializable]
+    public class TextBoxSerializable : ControlSerializable, IPropertyCollections<TextBox>
     {
         public override CustomPropertyCollection GetCollections(Control control)
         {

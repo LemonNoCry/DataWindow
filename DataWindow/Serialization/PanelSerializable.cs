@@ -1,8 +1,11 @@
-﻿using System.Windows.Forms;
+﻿using System;
+using System.Windows.Forms;
 using DataWindow.CustomPropertys;
+
 namespace DataWindow.Serialization
 {
-    public class PanelSerializable: ControlSerializable, IPropertyCollections<Panel>
+    [Serializable]
+    public class PanelSerializable : ControlSerializable, IPropertyCollections<Panel>
     {
         public override CustomPropertyCollection GetCollections(Control control)
         {

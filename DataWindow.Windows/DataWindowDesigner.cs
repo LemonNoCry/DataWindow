@@ -4,6 +4,7 @@ using System.ComponentModel.Design;
 using System.IO;
 using System.Linq;
 using System.Windows.Forms;
+using DataWindow.Core;
 using DataWindow.DesignerInternal;
 using DataWindow.DesignLayer;
 using DataWindow.Windows.Dock;
@@ -20,8 +21,6 @@ namespace DataWindow.Windows
         private ToolStripButton tbDelete;
         private Designer activeDesigner;
 
-        public Control DesignerControl { get; set; }
-        public Designer CurrentDesigner { get; set; }
 
         /// <summary>
         /// 是否可以多窗口
@@ -48,12 +47,10 @@ namespace DataWindow.Windows
             EnableUndoRedo();
         }
 
-        public static void DesignerLayout(Control control, Designer designer)
+        public static void DesignerLayout(Control control)
         {
             DataWindowDesigner dwd = new DataWindowDesigner();
-            dwd.DesignerControl = control;
-            dwd.CurrentDesigner = designer;
-            dwd.NewDesignedForm(dwd.DesignerControl);
+            dwd.NewDesignedForm(control);
             dwd.ShowDialog();
         }
 
@@ -77,14 +74,9 @@ namespace DataWindow.Windows
             CustomForm cf = new CustomForm();
             cf.Name = nameof(CustomForm);
 
-            DesignerControl = cf;
-            CurrentDesigner = cf.designer;
-
             DefaultLayoutXml = cf.GetLayoutXml();
 
             NewDesignedForm(cf);
-            //cf.designer.DesignerHost.Parents.Clear();
-            //this.activeDesigner.InitLayout(DefaultLayoutXml);
         }
 
         private void NewDesignedForm(Control control)
@@ -97,6 +89,10 @@ namespace DataWindow.Windows
 
         private void NewDesignerDocument(DesignerDocument doc)
         {
+            //初始化固有控件
+            toolboxWindow.BaseDataWindow = doc.DesignerControl.DesignedForm as IBaseDataWindow;
+            toolboxWindow.AddDataWindowControl(doc.DesignerControl.DesignedForm);
+
             this.activeDesigner = doc.Designer;
             doc.FormClosing += (s, e) => { EndDesign(doc.Designer); };
             doc.Designer.DesignEvents.AddingVerb += DesignEvents_AddingVerb;
@@ -109,6 +105,7 @@ namespace DataWindow.Windows
 
             tbSaveForm.Enabled = true;
         }
+
 
         private void OpenDesignedForm()
         {

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Drawing.Design;
 using System.Windows.Forms;
+using DataWindow.Core;
 using DataWindow.Toolbox;
 using DataWindow.Utility;
 
@@ -189,6 +190,15 @@ namespace DataWindow.DesignLayer
             _toolboxService.AddToolboxItem(tbi, category);
         }
 
+        public void AddToolboxItem(Control control, string category, string displayName = null)
+        {
+            var tbi = CreateToolboxItem(control.GetType());
+            tbi.DisplayName = displayName ?? control.Name;
+            tbi.Properties.Add("Source", control.ControlConvertSerializable());
+
+            _toolboxService.AddToolboxItem(tbi, category);
+        }
+
         public void AddCategory(string name, ToolboxCategoryState toolboxCategoryState = ToolboxCategoryState.Expanded)
         {
             var toolboxBaseItem = new ToolboxBaseItem(name, name, toolboxCategoryState == ToolboxCategoryState.Expanded ? 2 : 1, true);
@@ -289,13 +299,13 @@ namespace DataWindow.DesignLayer
             }
         }
 
-        internal ToolboxItem CreateToolboxItem(Type type)
+        internal CustomToolboxItem CreateToolboxItem(Type type)
         {
             var toolboxItemAttribute = TypeDescriptor.GetAttributes(type)[typeof(ToolboxItemAttribute)] as ToolboxItemAttribute;
-            if (toolboxItemAttribute == null) return new ToolboxItem(type);
+            if (toolboxItemAttribute == null) return new CustomToolboxItem(type);
             var constructor = toolboxItemAttribute.ToolboxItemType.GetConstructor(new Type[0]);
-            if (constructor == null) return new ToolboxItem(type);
-            var toolboxItem = (ToolboxItem) constructor.Invoke(new object[0]);
+            if (constructor == null) return new CustomToolboxItem(type);
+            var toolboxItem = (CustomToolboxItem) constructor.Invoke(new object[0]);
             toolboxItem.Initialize(type);
             return toolboxItem;
         }
