@@ -414,6 +414,10 @@ namespace DataWindow.Serialization.Components
                     Control control2;
                     if ((control2 = GetOrCreateObject(control, reader, ref flag) as Control) != null)
                     {
+                        if (control2.Parent==null)
+                        {
+                            control.Controls.Add(control2);
+                        }
                         LoadProperties(control2, reader);
                         if (!flag)
                         {
@@ -1518,7 +1522,7 @@ namespace DataWindow.Serialization.Components
                 if (type2 != null) flag = !typeof(IComponent).IsAssignableFrom(type2);
             }
 
-           
+
             if (flag) obj = CreateObject(type, text, true);
             return obj;
         }

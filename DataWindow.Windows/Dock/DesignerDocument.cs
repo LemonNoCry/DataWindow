@@ -55,7 +55,7 @@ namespace DataWindow.Windows.Dock
         public void Preview()
         {
             var form = new CustomForm();
-            form.SetLazyLayoutXml(this.DesignerControl.Designer.LayoutXml);
+            form.SetLayoutXml(this.DesignerControl.Designer.LayoutXml);
             form.ShowDialog();
         }
 

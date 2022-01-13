@@ -16,10 +16,11 @@ namespace DataWindow.Core
         string GetDefaultLayoutXml();
 
         void SetLayoutXml(string xml);
-        void SetLazyLayoutXml(string xml);
         string GetLayoutXml();
 
         List<Control> GetInherentControls();
+        void AddInherentControls();
+        void AddInherentControls(Control[] controls);
         bool IsInherentControl(Control con);
         Control GetInherentControl(string name);
 

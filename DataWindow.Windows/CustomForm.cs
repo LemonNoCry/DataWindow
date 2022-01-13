@@ -16,12 +16,15 @@ namespace DataWindow.Windows
         {
             InitializeComponent();
             Init();
+           
         }
 
         private void Init()
         {
+            AddInherentControls();
             AddMustControls(btnLogin);
         }
+
         // public 设计时事件可选
         public void button1_Click(object sender, EventArgs e)
         {
@@ -75,7 +78,6 @@ namespace DataWindow.Windows
             this.Name = "CustomForm";
             this.ResumeLayout(false);
             this.PerformLayout();
-
         }
 
         private void btnLogin_Click(object sender, EventArgs e)

@@ -16,7 +16,7 @@ namespace DataWindow.Utility
             var enumerator = control.Controls.GetEnumerator();
             while (enumerator.MoveNext())
                 if (((Control) enumerator.Current).Name == name)
-                    return control;
+                    return (Control) enumerator.Current;
             return null;
         }
 

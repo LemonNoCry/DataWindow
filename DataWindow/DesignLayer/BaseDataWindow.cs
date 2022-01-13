@@ -39,8 +39,6 @@ namespace DataWindow.DesignLayer
         }
 
 
-        private string lazyLoadLayoutXml;
-
         private string defaultXml;
 
         /// <summary>
@@ -149,10 +147,6 @@ namespace DataWindow.DesignLayer
             designer.LayoutXml = xml;
         }
 
-        public void SetLazyLayoutXml(string xml)
-        {
-            lazyLoadLayoutXml = xml;
-        }
 
         public string GetLayoutXml()
         {
@@ -162,6 +156,16 @@ namespace DataWindow.DesignLayer
         public List<Control> GetInherentControls()
         {
             return InherentControls;
+        }
+
+        public void AddInherentControls()
+        {
+            EachDataWindowControls(this, c => { InherentControls.Add(c); });
+        }
+
+        public void AddInherentControls(Control[] controls)
+        {
+            EachDataWindowControls(this, c => { InherentControls.Add(c); });
         }
 
         public bool IsInherentControl(Control con)
@@ -204,10 +208,6 @@ namespace DataWindow.DesignLayer
         protected override void OnShown(EventArgs e)
         {
             base.OnShown(e);
-            if (!string.IsNullOrWhiteSpace(lazyLoadLayoutXml))
-            {
-                designer.LayoutXml = lazyLoadLayoutXml;
-            }
         }
 
         public void EachDataWindowControls(Control control, Action<Control> action)
