@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Drawing.Design;
+using System.Linq;
 using System.Windows.Forms;
 using DataWindow.Core;
 using DataWindow.Toolbox;
@@ -45,9 +46,16 @@ namespace DataWindow.DesignLayer
             var list = _toolboxItems[category];
             var image = _images.Images.Add(item.Bitmap, item.Bitmap.GetPixel(0, 0));
             list.Add(new ToolboxBaseItem(item.DisplayName, item.DisplayName, image, item));
-            var num = FindCategoryItem(category);
-            var item2 = new ToolboxBaseItem(item.DisplayName, item.DisplayName, image, item);
-            _listbox.Items.Insert(num + 1 + list.Count, item2);
+            var baseGroup = _listbox.Items.Cast<ToolboxBaseItem>().FirstOrDefault(s => s.Text.Equals(category));
+            if (baseGroup != null)
+            {
+                if (baseGroup.Tag is ToolboxCategoryState tcs && tcs == ToolboxCategoryState.Expanded)
+                {
+                    var num = FindCategoryItem(category);
+                    var item2 = new ToolboxBaseItem(item.DisplayName, item.DisplayName, image, item);
+                    _listbox.Items.Insert(num + 1 + list.Count, item2);
+                }
+            }
         }
 
         void IToolbox.RemoveItem(ToolboxItem item, string category)
@@ -199,6 +207,13 @@ namespace DataWindow.DesignLayer
             _toolboxService.AddToolboxItem(tbi, category);
         }
 
+        public void ClearToolboxItem(string category)
+        {
+            var lis = _toolboxItems[category];
+            lis.ForEach(s => _listbox.Items.Remove(s));
+            lis.Clear();
+        }
+
         public void AddCategory(string name, ToolboxCategoryState toolboxCategoryState = ToolboxCategoryState.Expanded)
         {
             var toolboxBaseItem = new ToolboxBaseItem(name, name, toolboxCategoryState == ToolboxCategoryState.Expanded ? 2 : 1, true);
@@ -301,9 +316,9 @@ namespace DataWindow.DesignLayer
 
         internal CustomToolboxItem CreateToolboxItem(Type type)
         {
-            var toolboxItemAttribute = TypeDescriptor.GetAttributes(type)[typeof(ToolboxItemAttribute)] as ToolboxItemAttribute;
-            if (toolboxItemAttribute == null) return new CustomToolboxItem(type);
-            var constructor = toolboxItemAttribute.ToolboxItemType.GetConstructor(new Type[0]);
+            var toolboxItemAttribute = new ToolboxItemAttribute(typeof(CustomToolboxItem));
+            //TypeDescriptor.GetAttributes(type)[typeof(ToolboxItemAttribute)] as ToolboxItemAttribute;
+            var constructor = toolboxItemAttribute.ToolboxItemType.GetConstructor(Type.EmptyTypes);
             if (constructor == null) return new CustomToolboxItem(type);
             var toolboxItem = (CustomToolboxItem) constructor.Invoke(new object[0]);
             toolboxItem.Initialize(type);

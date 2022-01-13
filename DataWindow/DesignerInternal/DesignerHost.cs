@@ -408,6 +408,16 @@ namespace DataWindow.DesignerInternal
         {
             IComponent component = null;
             WriteToLog("创建组件 ", componentType.ToString());
+
+            if (!string.IsNullOrWhiteSpace(name))
+            {
+                component = Components.Cast<IComponent>().FirstOrDefault(s => s.Site.Name.Equals(name));
+                if (component != null)
+                {
+                    return component;
+                }
+            }
+
             try
             {
                 component = (IComponent) Activator.CreateInstance(componentType);
@@ -433,9 +443,14 @@ namespace DataWindow.DesignerInternal
                 Add((component as SplitContainer).Panel1, null);
                 Add((component as SplitContainer).Panel2, null);
             }
-            
+
             Add(component, name);
             return component;
+        }
+
+        public bool HasComponent(string name)
+        {
+            return Components.Cast<IComponent>().Any(s => s.Site.Name.Equals(name));
         }
 
         public void DestroyComponent(IComponent component)

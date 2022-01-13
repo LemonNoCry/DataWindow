@@ -74,6 +74,8 @@ namespace DataWindow.Windows.Dock
 
         public void AddDataWindowControl(Control parent)
         {
+            this.Toolbox.ClearToolboxItem("固有控件");
+
             Dictionary<Control, string> controlTranslation = new Dictionary<Control, string>();
             if (BaseDataWindow != null)
             {
