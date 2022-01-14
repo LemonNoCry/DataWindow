@@ -63,7 +63,7 @@ namespace DataWindow.CustomPropertys
 
         public EventDescriptorCollection GetEvents(Attribute[] attributes)
         {
-            return TypeDescriptor.GetEvents(this, attributes, true);
+            return TypeDescriptor.GetEvents(Sources, attributes, true);
         }
 
         public EventDescriptorCollection GetEvents()

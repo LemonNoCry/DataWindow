@@ -34,6 +34,11 @@ namespace DataWindow.DesignLayer
         public BaseDataWindow()
         {
             InitializeComponent();
+            this.designer = new Designer();
+            this.defaultDesignerLoader = new DefaultDesignerLoader();
+            this.designer.DesignedForm = this;
+            this.designer.DesignerLoader = this.defaultDesignerLoader;
+            this.designer.GridSize = new System.Drawing.Size(8, 8);
 
             designer.DesignerHost.UseNativeType = true;
         }
@@ -56,14 +61,25 @@ namespace DataWindow.DesignLayer
         /// </summary>
         public readonly Dictionary<Control, string> ControlTranslation = new Dictionary<Control, string>();
 
-        public Designer designer;
-        public DefaultDesignerLoader defaultDesignerLoader;
+        private Designer designer;
+        private DefaultDesignerLoader defaultDesignerLoader;
 
         /// <summary>
         /// 窗体上固有的控件
         /// </summary>
         public readonly List<Control> InherentControls = new List<Control>();
 
+        #region IBaseDataWindow
+
+        public Designer GetDesigner()
+        {
+            return designer;
+        }
+
+        public DefaultDesignerLoader GetDefaultDesignerLoader()
+        {
+            return defaultDesignerLoader;
+        }
 
         public void AddMustControls(params Control[] cons)
         {
@@ -124,17 +140,6 @@ namespace DataWindow.DesignLayer
         public void AddProhibitEditControls(params Control[] cons)
         {
             ProhibitEditControls.AddRange(cons);
-        }
-
-
-        public Designer GetDesigner()
-        {
-            return designer;
-        }
-
-        public DefaultDesignerLoader GetDefaultDesignerLoader()
-        {
-            return defaultDesignerLoader;
         }
 
         public void SetDefaultLayoutXml(string xml)
@@ -217,6 +222,11 @@ namespace DataWindow.DesignLayer
             return InherentControls.SingleOrDefault(s => s.Name.Equals(name));
         }
 
+        #endregion
+
+
+        #region 内部事件
+
         protected override void OnLoad(EventArgs e)
         {
             base.OnLoad(e);
@@ -251,6 +261,8 @@ namespace DataWindow.DesignLayer
             Clear();
         }
 
+        #endregion
+
         public void Clear()
         {
             MustEditControls.Clear();
@@ -261,23 +273,15 @@ namespace DataWindow.DesignLayer
 
         private void InitializeComponent()
         {
-            this.designer = new DataWindow.DesignLayer.Designer();
-            this.defaultDesignerLoader = new DataWindow.Serialization.Components.DefaultDesignerLoader();
             this.SuspendLayout();
-            // 
-            // designer
-            // 
-            this.designer.DesignedForm = this;
-            this.designer.DesignerLoader = this.defaultDesignerLoader;
-            this.designer.GridSize = new System.Drawing.Size(8, 8);
             // 
             // BaseDataWindow
             // 
-            this.ClientSize = new System.Drawing.Size(284, 261);
+            this.ClientSize = new System.Drawing.Size(552, 426);
             this.Name = "BaseDataWindow";
             this.Text = "自定义表单";
-            this.Size = new Size(800, 600);
             this.ResumeLayout(false);
+
         }
     }
 }

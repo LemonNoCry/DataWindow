@@ -252,6 +252,9 @@ namespace DataWindow.CustomPropertys
         /// </summary>
         public bool IsReadOnly { get; set; }
 
+
+        public bool? ShouldSerializeValue { get; set; }
+
         /// <summary>
         /// 描述
         /// </summary>

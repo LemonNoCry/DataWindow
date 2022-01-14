@@ -84,6 +84,7 @@ namespace DataWindow.Windows
             this.Name = "CustomForm";
             this.ResumeLayout(false);
             this.PerformLayout();
+
         }
 
         private void btnLogin_Click(object sender, EventArgs e)

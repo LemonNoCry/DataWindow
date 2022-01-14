@@ -39,7 +39,6 @@ namespace DataWindow.Windows.Dock
             this.Propertybox.Dock = System.Windows.Forms.DockStyle.Fill;
             this.Propertybox.Location = new System.Drawing.Point(0, 0);
             this.Propertybox.Name = "Propertybox";
-            this.Propertybox.ShowEventTab = false;
             this.Propertybox.Size = new System.Drawing.Size(204, 461);
             this.Propertybox.TabIndex = 0;
             // 

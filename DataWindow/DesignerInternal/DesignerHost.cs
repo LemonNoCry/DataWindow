@@ -866,9 +866,9 @@ namespace DataWindow.DesignerInternal
                     if ((componentDesigner = GetDesigner(control) as ComponentDesigner) != null)
                     {
                         if (CanInitializeExisting(control))
-                            componentDesigner.InitializeExistingComponent(null);
+                            componentDesigner.InitializeExistingComponent(new Dictionary<object,object>());
                         else
-                            componentDesigner.InitializeNewComponent(null);
+                            componentDesigner.InitializeNewComponent(new Dictionary<object,object>());
                     }
 
                     control.SetProperty("Text", property);

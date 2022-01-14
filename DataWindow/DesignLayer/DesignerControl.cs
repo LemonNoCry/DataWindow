@@ -29,8 +29,8 @@ namespace DataWindow.DesignLayer
             Designer.Dispose();
             defaultDesignerLoader.Dispose();
 
-            defaultDesignerLoader = root.defaultDesignerLoader;
-            Designer = root.designer;
+            defaultDesignerLoader = root.GetDefaultDesignerLoader();
+            Designer = root.GetDesigner();
             DesignedForm = root;
         }
 

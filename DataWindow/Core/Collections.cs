@@ -25,20 +25,22 @@ namespace DataWindow.Core
 
         public static void Init()
         {
-            Assembly assembly = Assembly.GetExecutingAssembly();
-            Type[] types = assembly.GetTypes();
-            foreach (var type in types)
+            foreach (var assembly in AppDomain.CurrentDomain.GetAssemblies())
             {
-                var pcTypes = type.GetInterfaces()
-                    .Where(s => s.IsAssignableFrom(typeof(IPropertyCollections<Control>)));
-
-                var enumerable = pcTypes as Type[] ?? pcTypes.ToArray();
-                if (enumerable.Any())
+                Type[] types = assembly.GetTypes();
+                foreach (var type in types)
                 {
-                    var controlType = enumerable.Last();
+                    var pcTypes = type.GetInterfaces()
+                        .Where(s => s.IsAssignableFrom(typeof(IPropertyCollections<Control>)));
 
-                    AllControlSerializable.Add(controlType.GetGenericArguments()[0].Name,
-                        (ControlSerializable) Activator.CreateInstance(type));
+                    var enumerable = pcTypes as Type[] ?? pcTypes.ToArray();
+                    if (enumerable.Any())
+                    {
+                        var controlType = enumerable.Last();
+
+                        AllControlSerializable.Add(controlType.GetGenericArguments()[0].Name,
+                            (ControlSerializable) Activator.CreateInstance(type));
+                    }
                 }
             }
         }

@@ -8,11 +8,13 @@ using System.Data;
 using System.Drawing;
 using System.Globalization;
 using System.IO;
+using System.Linq;
 using System.Reflection;
 using System.Runtime.Serialization.Formatters.Binary;
 using System.Text;
 using System.Windows.Forms;
 using DataWindow.Core;
+using DataWindow.CustomPropertys;
 using DataWindow.DesignerInternal;
 using DataWindow.Utility;
 
@@ -414,10 +416,11 @@ namespace DataWindow.Serialization.Components
                     Control control2;
                     if ((control2 = GetOrCreateObject(control, reader, ref flag) as Control) != null)
                     {
-                        if (control2.Parent==null)
+                        if (control2.Parent == null)
                         {
                             control.Controls.Add(control2);
                         }
+
                         LoadProperties(control2, reader);
                         if (!flag)
                         {
@@ -1280,9 +1283,27 @@ namespace DataWindow.Serialization.Components
         private int StoreProperties(object control, Control rootControl, IWriter writer)
         {
             var num = 0;
+            CustomPropertyCollection collections = null;
+            if (control is Control con)
+            {
+                collections = Collections.GetCollections(con);
+            }
+
             foreach (var obj in TypeDescriptor.GetProperties(control))
             {
                 var propertyDescriptor = (PropertyDescriptor) obj;
+                if (collections != null)
+                {
+                    var des = collections.FirstOrDefault(s => s.PropertyNames.Contains(propertyDescriptor.Name));
+                    if (des != null)
+                    {
+                        if (des.ShouldSerializeValue == false)
+                        {
+                            continue;
+                        }
+                    }
+                }
+
                 try
                 {
                     if ((StoreMode == StoreModes.AllProperties || propertyDescriptor.ShouldSerializeValue(control)) && propertyDescriptor.Name != "Controls") num += StoreMember(control, propertyDescriptor, rootControl, writer);

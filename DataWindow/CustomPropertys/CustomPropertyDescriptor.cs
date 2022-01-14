@@ -13,7 +13,7 @@ namespace DataWindow.CustomPropertys
         private readonly CustomProperty _customProperty = null;
         private readonly PropertyDescriptor _propertyDescriptor = null;
 
-     
+
         public CustomPropertyDescriptor(PropertyDescriptor basePropertyDescriptor, Attribute[] attrs, CustomProperty customProperty)
             : base(basePropertyDescriptor, attrs)
         {
@@ -21,7 +21,7 @@ namespace DataWindow.CustomPropertys
             this._customProperty = customProperty;
         }
 
-        public CustomPropertyDescriptor(CustomProperty customProperty, Attribute[] attrs): base(customProperty.Name, attrs)
+        public CustomPropertyDescriptor(CustomProperty customProperty, Attribute[] attrs) : base(customProperty.Name, attrs)
         {
             this._customProperty = customProperty;
         }
@@ -101,10 +101,16 @@ namespace DataWindow.CustomPropertys
 
         public override bool ShouldSerializeValue(object component)
         {
-            if (_propertyDescriptor==null)
+            if (_customProperty.ShouldSerializeValue.HasValue)
+            {
+                return _customProperty.ShouldSerializeValue.Value;
+            }
+
+            if (_propertyDescriptor == null)
             {
                 return true;
             }
+
             if (!flag.HasValue)
             {
                 flag = _propertyDescriptor.ShouldSerializeValue(component);
