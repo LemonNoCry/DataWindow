@@ -44,6 +44,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Core\IBaseDataWindow.cs" />
+    <Compile Include="CustomPropertys\IHostCreateCommpent.cs" />
     <Compile Include="DesignLayer\BaseDataWindow.cs">
       <SubType>Form</SubType>
     </Compile>

@@ -219,7 +219,7 @@ namespace DataWindow.DesignerInternal
                     designerSite.Name = name;
                     component.GetType().ToString().ToUpper();
                     component.Site = designerSite;
-                    
+
                     TabControl tabControl;
                     if ((tabControl = component as TabControl) != null)
                     {
@@ -249,7 +249,7 @@ namespace DataWindow.DesignerInternal
                         var componentAdding = ComponentAdding;
                         if (componentAdding != null) componentAdding(this, new ComponentEventArgs(component));
                         designerSite.Designer = designer;
-                        
+
                         _sites.Add(component, designerSite);
                         try
                         {
@@ -866,9 +866,9 @@ namespace DataWindow.DesignerInternal
                     if ((componentDesigner = GetDesigner(control) as ComponentDesigner) != null)
                     {
                         if (CanInitializeExisting(control))
-                            componentDesigner.InitializeExistingComponent(new Dictionary<object,object>());
+                            componentDesigner.InitializeExistingComponent(new Dictionary<object, object>());
                         else
-                            componentDesigner.InitializeNewComponent(new Dictionary<object,object>());
+                            componentDesigner.InitializeNewComponent(new Dictionary<object, object>());
                     }
 
                     control.SetProperty("Text", property);
@@ -1106,7 +1106,17 @@ namespace DataWindow.DesignerInternal
                     var designer = ((DesignerSite) component.Site).Designer;
                     extenderProvider = designer as IExtenderProvider;
                     if (extenderProvider != null) extenderProviderService.RemoveExtenderProvider(extenderProvider);
-                    if (designer != null) designer.Dispose();
+                    if (designer != null)
+                    {
+                        try
+                        { 
+                            designer.Dispose();
+                        }
+                        catch
+                        {
+                        }
+                    }
+
                     if (fireEvents && component != _rootView)
                     {
                         var e = new ComponentEventArgs(component);

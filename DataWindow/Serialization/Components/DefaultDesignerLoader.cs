@@ -416,6 +416,7 @@ namespace DataWindow.Serialization.Components
                     Control control2;
                     if ((control2 = GetOrCreateObject(control, reader, ref flag) as Control) != null)
                     {
+                        
                         if (control2.Parent == null)
                         {
                             control.Controls.Add(control2);
@@ -1352,6 +1353,17 @@ namespace DataWindow.Serialization.Components
                         flag = true;
                         break;
                     }
+
+                if (flag)
+                {
+                    var cols = Collections.GetCollections(control2);
+                    var pc = cols.FirstOrDefault(s => s.PropertyNames.Contains("Controls"));
+                    if (pc != null)
+                    {
+                        flag = pc.ShouldSerializeValue == true;
+                    }
+                }
+
 
                 if (flag)
                     foreach (var control3 in control2.Controls.ToArray())

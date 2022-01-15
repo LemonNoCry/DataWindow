@@ -22,7 +22,6 @@ namespace DataWindow.Core
         }
 
         public static Dictionary<string, ControlSerializable> AllControlSerializable = new Dictionary<string, ControlSerializable>();
-
         public static void Init()
         {
             foreach (var assembly in AppDomain.CurrentDomain.GetAssemblies())
@@ -113,6 +112,11 @@ namespace DataWindow.Core
         {
             var cpc = GetBaseSerializable(control.GetType()).GetCollections(control);
             return cpc;
+        }
+
+        public static void Copy()
+        {
+
         }
 
         #endregion

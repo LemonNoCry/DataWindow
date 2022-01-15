@@ -92,7 +92,7 @@ namespace DataWindow.Core
             DefaultDesignerLoader defaultDesignerLoader = new DefaultDesignerLoader();
             Designer designer = new Designer();
             designer.DesignerLoader = defaultDesignerLoader;
-            designer.DesignContainer = control;
+            designer.DesignedForm = control;
 
             return designer.LayoutXml;
         }

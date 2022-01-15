@@ -11,6 +11,7 @@ namespace DataWindow.Core
     {
         Designer GetDesigner();
         DefaultDesignerLoader GetDefaultDesignerLoader();
+        void InitAllControl();
 
         void SetDefaultLayoutXml(string xml);
         string GetDefaultLayoutXml();

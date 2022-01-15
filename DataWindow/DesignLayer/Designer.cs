@@ -684,6 +684,14 @@ namespace DataWindow.DesignLayer
             }
         }
 
+        public void ReloadLayoutXml(string xml)
+        {
+            Active = false;
+            DeleteAllComponents();
+            LayoutXml = xml;
+            Active = true;
+        }
+
         public void MakeSameSize(ResizeType resize)
         {
             if (!_active) return;

@@ -81,6 +81,11 @@ namespace DataWindow.DesignLayer
             return defaultDesignerLoader;
         }
 
+        public void InitAllControl()
+        {
+             EachDataWindowControls(this, c => { InherentControls.Add(c); });
+        }
+
         public void AddMustControls(params Control[] cons)
         {
             MustEditControls.AddRange(cons);
@@ -224,13 +229,15 @@ namespace DataWindow.DesignLayer
 
         #endregion
 
-
         #region 内部事件
 
         protected override void OnLoad(EventArgs e)
         {
             base.OnLoad(e);
-            EachDataWindowControls(this, c => { InherentControls.Add(c); });
+            if (!InherentControls.Any() && this.HasChildren)
+            {
+                InitAllControl();
+            }
         }
 
         protected override void OnShown(EventArgs e)
@@ -283,5 +290,6 @@ namespace DataWindow.DesignLayer
             this.ResumeLayout(false);
 
         }
+
     }
 }

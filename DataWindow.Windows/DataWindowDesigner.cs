@@ -433,8 +433,7 @@ namespace DataWindow.Windows
                 return;
             }
 
-            activeDesigner.DeleteAllComponents();
-            activeDesigner.LayoutXml = DefaultLayoutXml;
+            activeDesigner.ReloadLayoutXml(DefaultLayoutXml);
         }
 
         #endregion
