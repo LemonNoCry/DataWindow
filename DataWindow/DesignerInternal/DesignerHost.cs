@@ -686,6 +686,9 @@ namespace DataWindow.DesignerInternal
             else
             {
                 _designSurface = CreateDesignSurface(_designedForm.GetType());
+                var cs = Collections.ControlConvertSerializable(_designSurface);
+                cs?.CopyPropertyComponent(_designedForm, _designSurface);
+
                 _designSurface.Parent = DesignContainer;
             }
 
@@ -1100,20 +1103,34 @@ namespace DataWindow.DesignerInternal
                     if (fireEvents && component != _rootView && ComponentRemoving != null) ComponentRemoving(this, new ComponentEventArgs(component));
                     if (!_designStopped) ((FormComponents) GetService(typeof(FormComponents))).Remove(component.Site.Name);
                     var extenderProviderService = (IExtenderProviderService) GetService(typeof(IExtenderProviderService));
-                    var extenderProvider = component as IExtenderProvider;
+                    var designerActionService = (DesignerActionService) component.Site.GetService(typeof(DesignerActionService));
+                     var extenderProvider = component as IExtenderProvider;
                     if (extenderProvider != null) extenderProviderService.RemoveExtenderProvider(extenderProvider);
                     _sites.Remove(component);
                     var designer = ((DesignerSite) component.Site).Designer;
                     extenderProvider = designer as IExtenderProvider;
                     if (extenderProvider != null) extenderProviderService.RemoveExtenderProvider(extenderProvider);
+
+                    bool isDispose = true;
+                    if (DesignedForm is IBaseDataWindow bdw)
+                    {
+                        isDispose = !bdw.IsInherentControl((Control) component);
+                    }
+
+                    if (designerActionService!=null)
+                    {
+                        designerActionService.Remove(component);
+                    }
+                  
                     if (designer != null)
                     {
                         try
-                        { 
+                        {
                             designer.Dispose();
                         }
                         catch
                         {
+                            // ignored
                         }
                     }
 
@@ -1127,6 +1144,18 @@ namespace DataWindow.DesignerInternal
 
                     component.Site = null;
                     designerTransaction.Commit();
+
+
+                    if (isDispose)
+                    {
+                        component.Dispose();
+                    }
+                    else
+                    {
+                        ((Control) component)?.Hide();
+                    }
+                    
+                   
                 }
             }
         }

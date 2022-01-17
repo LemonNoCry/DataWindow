@@ -13,7 +13,7 @@ namespace DataWindow.Serialization
     /// 控件序列化基类 <br/>
     /// </summary>
     [Serializable]
-    public class ControlSerializable : IPropertyCollections<Control>
+    public class ControlSerializable : IPropertyCollections<Control>, IHostCreateComponent<Control>
     {
         public string Name { get; set; }
 
@@ -81,6 +81,15 @@ namespace DataWindow.Serialization
 
             collection.Add(new CustomProperty("Type", "Type", "内部", "类型", null, Type.FullName, null) {IsReadOnly = true, ValueType = typeof(string)});
             return collection;
+        }
+
+
+        public virtual void CopyPropertyComponent(Control source, Control target)
+        {
+            if (source == null || target == null)
+            {
+                return;
+            }
         }
     }
 }

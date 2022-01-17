@@ -422,6 +422,7 @@ namespace DataWindow.Serialization.Components
                             control.Controls.Add(control2);
                         }
 
+                        control2.Visible = true;
                         LoadProperties(control2, reader);
                         if (!flag)
                         {
@@ -1538,7 +1539,7 @@ namespace DataWindow.Serialization.Components
                 return obj;
             }
 
-            if (parent is IBaseDataWindow bdw)
+            if (designedForm is IBaseDataWindow bdw)
             {
                 obj = bdw.GetInherentControl(text);
                 if (obj != null)

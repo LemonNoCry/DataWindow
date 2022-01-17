@@ -386,7 +386,7 @@ namespace DataWindow.DesignLayer
 
             if (_designerHost.DesignedForm.HasChildren)
             {
-                _designerHost.DesignedForm.Controls.Clear();
+                _designerHost.DesignedForm.RemoveControls();
             }
 
             _designerLoader.Components = _designerHost.GetService(typeof(FormComponents)) as FormComponents;
@@ -643,7 +643,6 @@ namespace DataWindow.DesignLayer
                         if (component != _designerHost.RootComponent)
                         {
                             _designerHost.Remove(component);
-                            component.Dispose();
                         }
                     }
                     catch (Exception)
@@ -671,7 +670,6 @@ namespace DataWindow.DesignLayer
                             if (component != _designerHost.RootComponent)
                             {
                                 _designerHost.Remove(component);
-                                component.Dispose();
                             }
                         }
                         catch (Exception)

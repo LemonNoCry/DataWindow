@@ -193,5 +193,18 @@ namespace DataWindow.Utility
             if (num2 >= 0) return controls[num2];
             return null;
         }
+
+        public static void RemoveControls(this Control parent)
+        {
+            foreach (Control control in parent.Controls)
+            {
+                if (control.HasChildren)
+                {
+                    control.RemoveControls();
+                }
+            }
+
+            parent.Controls.Clear();
+        }
     }
 }

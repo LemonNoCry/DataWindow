@@ -6,8 +6,8 @@ using System.Windows.Forms;
 
 namespace DataWindow.CustomPropertys
 {
-    public interface IHostCreateCommpent
+    public interface IHostCreateComponent<in T>
     {
-        void CopyPropertyCommpent<T>(T source,T target);
+        void CopyPropertyComponent(T source, T target);
     }
 }
