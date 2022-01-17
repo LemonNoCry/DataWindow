@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<package>
+  <metadata>
+    <id>$id$</id>
+    <version>$version$</version>
+    <title>$title$</title>
+    <authors>$author$</authors>
+    <owners>$author$</owners>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <license type="expression">MIT</license>
+    <!-- <icon>icon.png</icon> -->
+    <projectUrl>http://www.ivytalksoft.org/</projectUrl>
+    <description>$description$</description>
+    <copyright>$copyright$</copyright>
+    <tags>.Net, Winform, DataWindow, Designer</tags>
+
+    <dependencies>
+      <dependency id="Mapster" version="7.2.0" />
+      <dependency id="Mapster.Core" version="1.2.0" />
+    </dependencies>
+
+  </metadata>
+</package>
