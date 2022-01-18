@@ -71,17 +71,27 @@ namespace DataWindow.Windows
         {
             OnlyOrMultipleOpen();
 
-            CustomForm cf = new CustomForm();
-            cf.Name = nameof(CustomForm);
+            //Control con = new UserControl();
+            //con.Name = "new control";
 
-            DefaultLayoutXml = cf.GetLayoutXml();
+            Control con = new CustomForm();
+            con.Name = "new control";
 
-            NewDesignedForm(cf);
+            NewDesignedForm(con);
         }
 
         private void NewDesignedForm(Control control)
         {
             OnlyOrMultipleOpen();
+
+            if (control is IBaseDataWindow bdw)
+            {
+                DefaultLayoutXml = bdw.GetLayoutXml();
+            }
+            else
+            {
+                DefaultLayoutXml = DataWindowAnalysis.SerializationDataWindow(control);
+            }
 
             var doc = new DesignerDocument(control);
             NewDesignerDocument(doc);

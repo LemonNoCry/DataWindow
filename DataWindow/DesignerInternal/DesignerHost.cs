@@ -685,7 +685,7 @@ namespace DataWindow.DesignerInternal
             }
             else
             {
-                _designSurface = CreateDesignSurface(_designedForm.GetType());
+                _designSurface = CreateDesignSurface(_designedForm.GetType(),_designedForm.Name);
                 var cs = Collections.ControlConvertSerializable(_designSurface);
                 cs?.CopyPropertyComponent(_designedForm, _designSurface);
 
@@ -773,14 +773,15 @@ namespace DataWindow.DesignerInternal
             loadComplete?.Invoke(this, EventArgs.Empty);
         }
 
-        internal Control CreateDesignSurface(Type rootType)
+        internal Control CreateDesignSurface(Type rootType, string name)
         {
             try
             {
-                var obj = Activator.CreateInstance(rootType);
+                var obj = (Control) Activator.CreateInstance(rootType);
+                obj.Name = name;
                 Form form;
                 if ((form = obj as Form) != null) form.TopLevel = false;
-                return (Control) obj;
+                return obj;
             }
             catch (Exception e)
             {
@@ -798,11 +799,14 @@ namespace DataWindow.DesignerInternal
             if (typeof(Form).IsAssignableFrom(rootType))
             {
                 var form2 = Activator.CreateInstance(typeof(Form)) as Form;
+                form2.Name = name;
                 form2.TopLevel = false;
                 return form2;
             }
 
-            return (Control) Activator.CreateInstance(typeof(UserControl));
+            Control con = (Control) Activator.CreateInstance(typeof(UserControl));
+            con.Name = name;
+            return con;
         }
 
         private void AddTableLayout(TableLayoutPanel panel, Control parent)
@@ -1104,7 +1108,7 @@ namespace DataWindow.DesignerInternal
                     if (!_designStopped) ((FormComponents) GetService(typeof(FormComponents))).Remove(component.Site.Name);
                     var extenderProviderService = (IExtenderProviderService) GetService(typeof(IExtenderProviderService));
                     var designerActionService = (DesignerActionService) component.Site.GetService(typeof(DesignerActionService));
-                     var extenderProvider = component as IExtenderProvider;
+                    var extenderProvider = component as IExtenderProvider;
                     if (extenderProvider != null) extenderProviderService.RemoveExtenderProvider(extenderProvider);
                     _sites.Remove(component);
                     var designer = ((DesignerSite) component.Site).Designer;
@@ -1117,11 +1121,11 @@ namespace DataWindow.DesignerInternal
                         isDispose = !bdw.IsInherentControl((Control) component);
                     }
 
-                    if (designerActionService!=null)
+                    if (designerActionService != null)
                     {
                         designerActionService.Remove(component);
                     }
-                  
+
                     if (designer != null)
                     {
                         try
@@ -1154,8 +1158,6 @@ namespace DataWindow.DesignerInternal
                     {
                         ((Control) component)?.Hide();
                     }
-                    
-                   
                 }
             }
         }

@@ -86,6 +86,11 @@ namespace DataWindow.DesignLayer
 
                     if (string.IsNullOrEmpty(text))
                     {
+                        text = control.Text;
+                    }
+
+                    if (string.IsNullOrEmpty(text))
+                    {
                         text = control.Name;
                     }
                 }
@@ -95,6 +100,7 @@ namespace DataWindow.DesignLayer
                         text = component.Site.Name;
                 }
 
+           
                 if (string.IsNullOrEmpty(text)) text = obj.GetType().Name;
 
                 using (var font = new Font(comboBox.Font, FontStyle.Bold))
