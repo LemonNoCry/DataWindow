@@ -1,6 +1,8 @@
 ﻿using System.ComponentModel;
+using System.Linq;
 using System.Windows.Forms;
 using DataWindow.Core;
+using DataWindow.CustomPropertys;
 
 namespace DataWindow.DesignLayer
 {
@@ -95,13 +97,13 @@ namespace DataWindow.DesignLayer
                         break;
                     case DisplayModeEnum.ForNormalUser:
                     default:
-                        if (value is Control[] cons)
+                        if (!value.Where(s => !(s is Control)).Any())
                         {
-                            base.SelectedObject = cons.GetCollections();
+                            base.SelectedObjects = value.Cast<Control>().GetCollections();
                         }
                         else
                         {
-                            base.SelectedObject = value;
+                            base.SelectedObjects = value;
                         }
 
                         break;

@@ -63,6 +63,9 @@
     <Compile Include="Dock\DesignerDocument.cs">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="Dock\MyTextBox.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="Old\DesignerWindow.cs">
       <SubType>Form</SubType>
     </Compile>

@@ -84,12 +84,12 @@ namespace DataWindow.DesignLayer
                         bdw.GetControlTranslation().TryGetValue(control, out text);
                     }
 
-                    if (string.IsNullOrEmpty(text))
+                    if (string.IsNullOrWhiteSpace(text))
                     {
                         text = control.Text;
                     }
 
-                    if (string.IsNullOrEmpty(text))
+                    if (string.IsNullOrWhiteSpace(text))
                     {
                         text = control.Name;
                     }
@@ -100,7 +100,7 @@ namespace DataWindow.DesignLayer
                         text = component.Site.Name;
                 }
 
-           
+
                 if (string.IsNullOrEmpty(text)) text = obj.GetType().Name;
 
                 using (var font = new Font(comboBox.Font, FontStyle.Bold))

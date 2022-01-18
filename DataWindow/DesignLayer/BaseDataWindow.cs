@@ -8,6 +8,7 @@ using System.Xml.Serialization;
 using DataWindow.Core;
 using DataWindow.DesignerInternal;
 using DataWindow.Serialization.Components;
+using DataWindow.Utility;
 
 namespace DataWindow.DesignLayer
 {
@@ -83,7 +84,7 @@ namespace DataWindow.DesignLayer
 
         public void InitAllControl()
         {
-             EachDataWindowControls(this, c => { InherentControls.Add(c); });
+            EachDataWindowControls(this, c => { InherentControls.Add(c); });
         }
 
         public void AddMustControls(params Control[] cons)
@@ -218,8 +219,13 @@ namespace DataWindow.DesignLayer
         {
             foreach (var key in translation)
             {
-                ControlTranslation.Add(key.Key, key.Value);
+                ControlTranslation.AddOrModify(key.Key, key.Value);
             }
+        }
+
+        public void AddControlTranslation(Control control, string translation)
+        {
+            ControlTranslation.AddOrModify(control, translation);
         }
 
         public Control GetInherentControl(string name)
@@ -288,8 +294,6 @@ namespace DataWindow.DesignLayer
             this.Name = "BaseDataWindow";
             this.Text = "自定义表单";
             this.ResumeLayout(false);
-
         }
-
     }
 }

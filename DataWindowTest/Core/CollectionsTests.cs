@@ -8,6 +8,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using DataWindow.CustomPropertys;
 using DataWindow.Serialization;
+using DataWindow.Utility;
 
 namespace DataWindow.Core.Tests
 {
@@ -32,6 +33,14 @@ namespace DataWindow.Core.Tests
             var cs = Collections.ControlConvertSerializable(con);
 
             Console.WriteLine(cs);
+        }
+
+        [TestMethod()]
+        public void Test1()
+        {
+            //验证子类
+            Control con = new Control();
+            Console.WriteLine(con.GetType().GetControlRealType());
         }
     }
 }

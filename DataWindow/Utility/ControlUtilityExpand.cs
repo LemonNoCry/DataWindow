@@ -1,4 +1,5 @@
-﻿using System.Windows.Forms;
+﻿using System;
+using System.Windows.Forms;
 
 namespace DataWindow.Utility
 {
@@ -14,6 +15,19 @@ namespace DataWindow.Utility
             }
 
             return false;
+        }
+        
+        public static Type GetControlRealType(this Type type) 
+        {
+            if(type == null&&type.IsAssignableFrom(typeof(Control)))
+            {
+                return null;
+            }
+            if (type.Assembly.FullName == typeof(Control).Assembly.FullName)
+            {
+                return type;
+            }
+            return GetControlRealType(type.BaseType);
         }
     }
 }

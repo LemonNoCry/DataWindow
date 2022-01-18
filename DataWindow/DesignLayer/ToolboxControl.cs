@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Drawing;
 using System.Drawing.Design;
 using System.Linq;
 using System.Windows.Forms;
@@ -322,8 +323,16 @@ namespace DataWindow.DesignLayer
             if (constructor == null) return new CustomToolboxItem(type);
             var toolboxItem = (CustomToolboxItem) constructor.Invoke(new object[0]);
             toolboxItem.Initialize(type);
+
+            ToolboxBitmapAttribute toolboxBitmapAttribute = (ToolboxBitmapAttribute)TypeDescriptor.GetAttributes(type.GetControlRealType())[typeof(ToolboxBitmapAttribute)];
+            if (toolboxBitmapAttribute != null)
+            {
+               toolboxItem.Bitmap = toolboxBitmapAttribute.GetImage(type.GetControlRealType()) as Bitmap;
+            }
+
             return toolboxItem;
         }
+
 
         private event EventHandler _BeginDragAndDrop;
 

@@ -40,5 +40,6 @@ namespace DataWindow.Core
 
         Dictionary<Control, string> GetControlTranslation();
         void AddControlTranslation(IDictionary<Control, string> translation);
+        void AddControlTranslation(Control control, string translation);
     }
 }
