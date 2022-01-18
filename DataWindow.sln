@@ -9,9 +9,9 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DataWindow.Windows", "DataW
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DataWindowTest", "DataWindowTest\DataWindowTest.csproj", "{9B0B723A-98D6-4C8A-A971-FED39021F657}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "source", "source", "{E736163E-2B6C-4B54-A56B-B9B74D41F6F7}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Source", "Source", "{E736163E-2B6C-4B54-A56B-B9B74D41F6F7}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "test", "test", "{665AEBB4-537C-431D-9A27-0A6EB5C78D02}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Test", "Test", "{665AEBB4-537C-431D-9A27-0A6EB5C78D02}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
