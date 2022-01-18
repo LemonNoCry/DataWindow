@@ -20,7 +20,7 @@ namespace DataWindow.Serialization
             var cpc = base.GetCollections(control);
 
             cpc.Add(new CustomProperty("透明度", "Opacity", "外观", "Opacity 透明度", control));
-
+           
             return cpc;
         }
     }

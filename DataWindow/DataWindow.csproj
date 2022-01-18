@@ -21,6 +21,8 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <DocumentationFile>bin\Debug\DataWindow.xml</DocumentationFile>
+    <NoWarn>1591</NoWarn>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -83,6 +85,7 @@
     <Compile Include="Serialization\BaseDataWindowSerializable.cs" />
     <Compile Include="Serialization\FormSerializable.cs" />
     <Compile Include="Serialization\LabelSerializable.cs" />
+    <Compile Include="Serialization\ScrollableControlSerializable.cs" />
     <Compile Include="Serialization\PanelSerializable.cs" />
     <Compile Include="Serialization\TextBoxSerializable.cs" />
     <Compile Include="DesignLayer\localizationPropertyGrid.cs">
@@ -103,6 +106,7 @@
     <Compile Include="DesignerInternal\FormComponents.cs" />
     <Compile Include="DesignerInternal\Interface\IDesignEvents.cs" />
     <Compile Include="Utility\ControlUtilityExpand.cs" />
+    <Compile Include="Utility\DictionaryExtensions.cs" />
     <Compile Include="Utility\IEnumerableExtensions.cs" />
     <Compile Include="DesignerInternal\Interface\IFormComponents.cs" />
     <Compile Include="DesignerInternal\AddAction.cs" />

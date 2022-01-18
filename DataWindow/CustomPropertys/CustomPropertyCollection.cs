@@ -19,11 +19,35 @@ namespace DataWindow.CustomPropertys
             return this.FirstOrDefault(s => s.PropertyNames.Contains(name));
         }
 
+        /// <summary>
+        /// 添加自定义属性 <br/>
+        /// 如果集合中有相同的Name，将添加失败。如果有意修改请使用AddExist
+        /// </summary>
+        /// <param name="cp">自定义属性</param>
+        /// <returns>true:添加成功</returns>
+        public new bool Add(CustomProperty cp)
+        {
+            if (this.Any(s => s.Name.Equals(cp.Name)))
+            {
+                return false;
+            }
+
+            base.Add(cp);
+            return true;
+        }
+
+        public bool AddExist(CustomProperty cp)
+        {
+            RemoveAll(s => s.Name.Equals(cp.Name));
+            return Add(cp);
+        }
+
         #endregion
+
 
         #region ICustomTypeDescriptor 成员
 
-        public PropertyDescriptorCollection _propDescCol;
+        private PropertyDescriptorCollection _propDescCol;
         public object Sources { get; set; }
 
         public AttributeCollection GetAttributes()
@@ -215,6 +239,7 @@ namespace DataWindow.CustomPropertys
 
                     _propDescCol.Add(new CustomPropertyDescriptor(prop, attrs.ToArray(), cp));
                 }
+
                 CustomAddProperties(_propDescCol);
             }
 

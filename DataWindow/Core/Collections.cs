@@ -22,26 +22,41 @@ namespace DataWindow.Core
         }
 
         public static Dictionary<string, ControlSerializable> AllControlSerializable = new Dictionary<string, ControlSerializable>();
+
         public static void Init()
         {
             foreach (var assembly in AppDomain.CurrentDomain.GetAssemblies())
             {
                 Type[] types = assembly.GetTypes();
-                foreach (var type in types)
+                foreach (var type in types.Where(s => typeof(ControlSerializable).IsAssignableFrom(s)))
                 {
                     var pcTypes = type.GetInterfaces()
                         .Where(s => s.IsAssignableFrom(typeof(IPropertyCollections<Control>)));
 
                     var enumerable = pcTypes as Type[] ?? pcTypes.ToArray();
-                    if (enumerable.Any())
-                    {
-                        var controlType = enumerable.Last();
+                    if (!enumerable.Any()) continue;
 
-                        AllControlSerializable.Add(controlType.GetGenericArguments()[0].Name,
-                            (ControlSerializable) Activator.CreateInstance(type));
-                    }
+                    var controlType = enumerable.Last();
+                    var controlName = controlType.GetGenericArguments()[0].Name;
+
+                    AddControlSerializable(controlName, type);
                 }
             }
+        }
+
+        private static void AddControlSerializable(string controlName, Type controlType)
+        {
+            if (AllControlSerializable.TryGetValue(controlName, out var cs))
+            {
+                //过滤掉父类，优先子类
+                if (controlType.IsAssignableFrom(cs.GetType()))
+                {
+                    return;
+                }
+            }
+
+            AllControlSerializable.AddOrModify(controlName,
+                (ControlSerializable) Activator.CreateInstance(controlType));
         }
 
         public static ControlSerializable GetBaseSerializable(Type type)
@@ -112,11 +127,6 @@ namespace DataWindow.Core
         {
             var cpc = GetBaseSerializable(control.GetType()).GetCollections(control);
             return cpc;
-        }
-
-        public static void Copy()
-        {
-
         }
 
         #endregion
