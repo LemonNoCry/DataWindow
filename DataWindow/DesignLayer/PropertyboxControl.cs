@@ -3,6 +3,7 @@ using System.ComponentModel;
 using System.Drawing;
 using System.Windows.Forms;
 using System.Windows.Forms.Design;
+using DataWindow.Core;
 using DataWindow.CustomPropertys;
 
 namespace DataWindow.DesignLayer
@@ -75,11 +76,27 @@ namespace DataWindow.DesignLayer
             if ((component = obj as IComponent) != null)
             {
                 var text = string.Empty;
-                Control control;
-                if (component.Site != null)
-                    text = component.Site.Name;
-                else if ((control = obj as Control) != null) text = control.Name;
+                Control control = obj as Control;
+                if (control != null)
+                {
+                    if (_designer.DesignedForm is IBaseDataWindow bdw)
+                    {
+                        bdw.GetControlTranslation().TryGetValue(control, out text);
+                    }
+
+                    if (string.IsNullOrEmpty(text))
+                    {
+                        text = control.Name;
+                    }
+                }
+                else
+                {
+                    if (component.Site != null)
+                        text = component.Site.Name;
+                }
+
                 if (string.IsNullOrEmpty(text)) text = obj.GetType().Name;
+
                 using (var font = new Font(comboBox.Font, FontStyle.Bold))
                 {
                     graphics.DrawString(text, font, brush, num, e.Bounds.Y);
