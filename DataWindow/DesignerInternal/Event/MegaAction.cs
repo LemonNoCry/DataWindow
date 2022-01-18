@@ -5,6 +5,7 @@ using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.ComponentModel.Design;
 using System.Windows.Forms;
+using DataWindow.CustomPropertys;
 using DataWindow.DesignLayer;
 
 namespace DataWindow.DesignerInternal.Event
@@ -117,7 +118,7 @@ namespace DataWindow.DesignerInternal.Event
         public Hashtable StoreProperties(object control, DesignerHost host, PropertyDescriptor propDescriptor)
         {
             var hashtable = new Hashtable();
-            if (control is Designer)
+            if (control is Designer || control is CustomPropertyCollection)
             {
                 return hashtable;
             }
@@ -152,7 +153,7 @@ namespace DataWindow.DesignerInternal.Event
                 }
             }
 
-            if (propDescriptor != null && propDescriptor.Name != "Parent")
+            if (propDescriptor != null && propDescriptor.Name != "Parent" )
                 try
                 {
                     var value2 = propDescriptor.GetValue(control);
