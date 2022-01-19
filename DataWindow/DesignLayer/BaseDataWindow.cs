@@ -50,12 +50,12 @@ namespace DataWindow.DesignLayer
         /// <summary>
         /// 控件必须
         /// </summary>
-        public readonly List<Control> MustEditControls = new List<Control>();
+        public readonly HashSet<Control> MustEditControls = new HashSet<Control>();
 
         /// <summary>
         /// 禁止编辑控件
         /// </summary>
-        public readonly List<Control> ProhibitEditControls = new List<Control>();
+        public readonly HashSet<Control> ProhibitEditControls = new HashSet<Control>();
 
         /// <summary>
         /// 控件翻译
@@ -89,12 +89,15 @@ namespace DataWindow.DesignLayer
 
         public void AddMustControls(params Control[] cons)
         {
-            MustEditControls.AddRange(cons);
+            foreach (var control in cons)
+            {
+                MustEditControls.Add(control);
+            }
         }
 
         public List<Control> GetMustEditControls()
         {
-            return MustEditControls;
+            return MustEditControls.ToList();
         }
 
         /// <summary>
@@ -140,12 +143,15 @@ namespace DataWindow.DesignLayer
 
         public List<Control> GetProhibitEditControls()
         {
-            return ProhibitEditControls;
+            return ProhibitEditControls.ToList();
         }
 
         public void AddProhibitEditControls(params Control[] cons)
         {
-            ProhibitEditControls.AddRange(cons);
+            foreach (var control in cons)
+            {
+                ProhibitEditControls.Add(control);
+            }
         }
 
         public void SetDefaultLayoutXml(string xml)

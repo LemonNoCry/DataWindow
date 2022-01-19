@@ -2,6 +2,7 @@
 using System.Windows.Forms;
 using DataWindow.CustomPropertys;
 using DataWindow.DesignLayer;
+using DataWindow.Utility;
 
 namespace DataWindow.Serialization
 {

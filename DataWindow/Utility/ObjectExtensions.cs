@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
 using System.Xml.Serialization;
@@ -52,6 +53,14 @@ namespace DataWindow.Utility
                 {
                     td.RemoveAt(index);
                 }
+            }
+        }
+
+        public static void AddRange<T>(this HashSet<T> source, HashSet<T> target)
+        {
+            foreach (var t in target)
+            {
+                source.Add(t);
             }
         }
     }
