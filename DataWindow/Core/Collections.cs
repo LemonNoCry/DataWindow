@@ -27,6 +27,7 @@ namespace DataWindow.Core
         {
             foreach (var assembly in AppDomain.CurrentDomain.GetAssemblies())
             {
+
                 Type[] types = assembly.GetTypes();
                 foreach (var type in types.Where(s => typeof(ControlSerializable).IsAssignableFrom(s)))
                 {

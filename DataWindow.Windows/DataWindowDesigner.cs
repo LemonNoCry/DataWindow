@@ -29,6 +29,8 @@ namespace DataWindow.Windows
 
         public string DefaultLayoutXml { get; set; }
 
+        public string  LayoutXml { get; set; }
+
         public DataWindowDesigner()
         {
             InitializeComponent();
@@ -47,11 +49,11 @@ namespace DataWindow.Windows
             EnableUndoRedo();
         }
 
-        public static void DesignerLayout(Control control)
+        public static DataWindowDesigner DesignerLayout(Control control)
         {
             DataWindowDesigner dwd = new DataWindowDesigner();
             dwd.NewDesignedForm(control);
-            dwd.ShowDialog();
+            return dwd;
         }
 
 
@@ -148,6 +150,7 @@ namespace DataWindow.Windows
 
         private void SaveDesignedForm()
         {
+            LayoutXml = this.activeDesigner.LayoutXml;
             var saveFileName = new SaveFileDialog();
             saveFileName.Filter = "XML Form (*.xml)|*.xml";
             saveFileName.FilterIndex = 1;

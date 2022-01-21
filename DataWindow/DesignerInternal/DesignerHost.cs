@@ -685,7 +685,7 @@ namespace DataWindow.DesignerInternal
             }
             else
             {
-                _designSurface = CreateDesignSurface(_designedForm.GetType(),_designedForm.Name);
+                _designSurface = CreateDesignSurface(_designedForm.GetType(), _designedForm.Name);
                 var cs = Collections.ControlConvertSerializable(_designSurface);
                 cs?.CopyPropertyComponent(_designedForm, _designSurface);
 
@@ -1152,6 +1152,19 @@ namespace DataWindow.DesignerInternal
 
                     if (isDispose)
                     {
+                        if (component is Control control)
+                        {
+                            if (control.HasChildren && !control.Controls.IsReadOnly)
+                            {
+                                foreach (Control con in control.Controls)
+                                {
+                                    Remove(con);
+                                }
+
+                                control.Controls.Clear();
+                            }
+                        }
+
                         component.Dispose();
                     }
                     else

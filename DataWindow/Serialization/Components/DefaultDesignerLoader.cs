@@ -219,6 +219,7 @@ namespace DataWindow.Serialization.Components
 
                 Control rootControl = null;
                 if (designerHost != null) rootControl = designerHost.RootComponent as Control;
+                
                 var list2 = new List<Control>();
                 using (var enumerator2 = list.GetEnumerator())
                 {
@@ -1365,7 +1366,6 @@ namespace DataWindow.Serialization.Components
                     }
                 }
 
-
                 if (flag)
                     foreach (var control3 in control2.Controls.ToArray())
                         if (control3 != null && (designerHost == null || control3.Site != null && control3.Site.GetService(typeof(IDesignerHost)) == designerHost))
@@ -1498,7 +1498,7 @@ namespace DataWindow.Serialization.Components
 
         private bool DrillDownDefault(IComponent control)
         {
-            return !(control is BindingNavigator) && (!(control is ContainerControl) || control is Form || designerHost != null && control == designerHost.RootComponent || control.GetType().ToString().IndexOf("DesignSurface") != -1);
+            return !(control is BindingNavigator) && (!(control is ContainerControl) || control is Form||control is UserControl || designerHost != null && control == designerHost.RootComponent || control.GetType().ToString().IndexOf("DesignSurface") != -1);
         }
 
         private IComponent FindComponent(string name)

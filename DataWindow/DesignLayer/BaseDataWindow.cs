@@ -187,7 +187,10 @@ namespace DataWindow.DesignLayer
 
         public void AddInherentControls(Control[] controls)
         {
-            EachDataWindowControls(this, c => { InherentControls.Add(c); });
+            foreach (var c in controls)
+            {
+                InherentControls.Add(c);
+            }
         }
 
         public bool IsInherentControl(Control con)

@@ -204,7 +204,11 @@ namespace DataWindow.Utility
                 }
             }
 
-            parent.Controls.Clear();
+            if (!parent.Controls.IsReadOnly)
+            {
+                parent.Controls.Clear();
+            }
+            
         }
     }
 }

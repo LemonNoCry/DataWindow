@@ -472,6 +472,7 @@ namespace DataWindow.DesignLayer
 
             list2.Add(item);
             if (_designedComponents != null) list.AddRange(_designedComponents.Values);
+
             foreach (var obj in _designerHost.Components)
             {
                 var component = (IComponent) obj;
@@ -481,6 +482,7 @@ namespace DataWindow.DesignLayer
                     if (designedComponents == null || !designedComponents.Contains(component)) list.Add(component);
                 }
             }
+
 
             _designerLoader.Store(list.ToArray(), writer);
             ClearDirty();
