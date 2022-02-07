@@ -60,17 +60,7 @@ namespace DataWindow.Toolbox
                     {
                         Control con = (Control) component;
 
-                        var clickPoint = (Point) defaultValues["Location"];
-
-                        if (!isHas)
-                        {
-                            designer.InitializeNewComponent(defaultValues);
-                            clickPoint = con.Parent.PointToClient(clickPoint);
-
-                            cs?.ControlSerializableToControl(con);
-                            con.Visible = true;
-                        }
-                        else
+                        if (isHas)
                         {
                             var parent = defaultValues["Parent"] as Control;
 
@@ -79,11 +69,29 @@ namespace DataWindow.Toolbox
                                 con.Parent = parent;
                             }
 
-                            clickPoint = con.Parent.PointToClient(clickPoint);
+                            cs?.ControlSerializableToControl(con);
+
+                            if (defaultValues.Contains("Location"))
+                            {
+                                var clickPoint = (Point) defaultValues["Location"];
+                                con.Location = con.Parent.PointToClient(clickPoint);
+                            }
+                        }
+                        else
+                        {
+                            designer.InitializeNewComponent(defaultValues);
+
+                            cs?.ControlSerializableToControl(con);
+
+                            if (defaultValues.Contains("Location"))
+                            {
+                                var clickPoint = (Point) defaultValues["Location"];
+                                con.Location = con.Parent.PointToClient(clickPoint);
+                            }
+
                         }
 
-                        con.Location = clickPoint;
-
+                        con.Visible = true;
                         flag = false;
                     }
                     finally

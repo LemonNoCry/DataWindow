@@ -311,12 +311,16 @@ namespace DataWindow.Toolbox
                             var designerHost = designer.DesignerHost;
                             var control2 = (Control) designerHost.RootComponent;
                             var componentChangeService = (IComponentChangeService) designerHost.GetService(typeof(IComponentChangeService));
-                            ((ComponentDesigner) designerHost.GetDesigner(component)).InitializeNewComponent(new Hashtable());
+                            //((ComponentDesigner) designerHost.GetDesigner(component)).InitializeNewComponent(new Hashtable());
                             componentChangeService.OnComponentChanging(component, null);
                             control.SuspendLayout();
                             control.Parent = control2;
                             control.Location = new Point((control2.Width - control.Width) / 2, (control2.Height - control.Height) / 2);
-                            control.Text = control.Name;
+                            if (string.IsNullOrEmpty(control.Text))
+                            {
+                                control.Text = control.Name;
+                            }
+
                             control.ResumeLayout();
                             componentChangeService.OnComponentChanged(component, null, null, null);
                             var selectionService = (ISelectionService) designerHost.GetService(typeof(ISelectionService));
