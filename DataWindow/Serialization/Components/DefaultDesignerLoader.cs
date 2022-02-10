@@ -427,7 +427,7 @@ namespace DataWindow.Serialization.Components
                         LoadProperties(control2, reader);
                         if (!flag)
                         {
-                            addedControls[control].Add(control2);
+                            //addedControls[control].Add(control2);
                             TableLayoutPanel tableLayoutPanel;
                             if ((tableLayoutPanel = control as TableLayoutPanel) != null)
                             {
