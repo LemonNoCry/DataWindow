@@ -183,6 +183,26 @@ namespace DataWindow.Windows.Properties {
         /// <summary>
         ///   查找 System.Drawing.Bitmap 类型的本地化资源。
         /// </summary>
+        internal static System.Drawing.Bitmap PutBottom_16x {
+            get {
+                object obj = ResourceManager.GetObject("PutBottom_16x", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   查找 System.Drawing.Bitmap 类型的本地化资源。
+        /// </summary>
+        internal static System.Drawing.Bitmap PutTop_16x {
+            get {
+                object obj = ResourceManager.GetObject("PutTop_16x", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   查找 System.Drawing.Bitmap 类型的本地化资源。
+        /// </summary>
         internal static System.Drawing.Bitmap redo_16x {
             get {
                 object obj = ResourceManager.GetObject("redo_16x", resourceCulture);

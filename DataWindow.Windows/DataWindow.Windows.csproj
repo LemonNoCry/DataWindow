@@ -167,6 +167,8 @@
     <None Include="Resources\open_file_16x.png" />
     <None Include="Resources\lock_16x.png" />
     <Content Include="Resources\design.ico" />
+    <None Include="Resources\PutTop_16x.png" />
+    <None Include="Resources\PutBottom_16x.png" />
     <Content Include="Resources\redo_16x.png" />
     <Content Include="Resources\same_height_16x.png" />
     <Content Include="Resources\same_size_16x.png" />

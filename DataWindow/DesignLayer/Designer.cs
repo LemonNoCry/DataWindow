@@ -763,6 +763,32 @@ namespace DataWindow.DesignLayer
             }
         }
 
+        public void SetPut(AlignType align)
+        {
+            if (!_active) return;
+            var selectionService = (ISelectionService) _designerHost.GetService(typeof(ISelectionService));
+            if (selectionService.SelectionCount < 1) return;
+            var selectedComponents = selectionService.GetSelectedComponents();
+            var componentChangeService = (IComponentChangeService) _designerHost.GetService(typeof(IComponentChangeService));
+
+            using (var designerTransaction = _designerHost.CreateTransaction("SetPut"))
+            {
+                foreach (Control con in selectedComponents)
+                {
+                    if (align == AlignType.Top)
+                    {
+                        con.BringToFront();
+                    }
+                    else if (align == AlignType.Bottom)
+                    {
+                        con.SendToBack();
+                    }
+                }
+
+                designerTransaction.Commit();
+            }
+        }
+
         public void Lock()
         {
             if (!_active) return;

@@ -194,6 +194,9 @@ namespace DataWindow.Windows
         private void EnableFeatures(bool enable)
         {
             this.tbLock.Enabled = enable;
+
+            this.tbPutTop.Enabled = enable;
+            this.tbPutBottom.Enabled = enable;
         }
 
 
@@ -220,6 +223,7 @@ namespace DataWindow.Windows
             this.tbSameBoth.Enabled = enable;
             this.tbSameWidth.Enabled = enable;
             this.tbSameHeight.Enabled = enable;
+
         }
 
         private void EnableUndoRedo()
@@ -404,6 +408,16 @@ namespace DataWindow.Windows
             this.activeDesigner.MakeSameSize(ResizeType.SameHeight | ResizeType.SameWidth);
         }
 
+        private void tbPutTop_Click(object sender, EventArgs e)
+        {
+            this.activeDesigner.SetPut(AlignType.Top);
+        }
+
+        private void tbPutBottom_Click(object sender, EventArgs e)
+        {
+            this.activeDesigner.SetPut(AlignType.Bottom);
+        }
+
         private void miUndo_Click(object sender, System.EventArgs e)
         {
             this.activeDesigner.Undo();
@@ -496,5 +510,7 @@ namespace DataWindow.Windows
         }
 
         #endregion
+
+      
     }
 }
