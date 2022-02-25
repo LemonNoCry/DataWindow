@@ -13,7 +13,7 @@ namespace DataWindow.Windows
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new DataWindowDesigner());
+            Application.Run(new Form1());
         }
     }
 }

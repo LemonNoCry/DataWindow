@@ -18,7 +18,7 @@ namespace DataWindow.Windows
 
         private void button1_Click(object sender, EventArgs e)
         {
-            var dwd=DataWindowDesigner.DesignerLayout(this.customUserControl1);
+            var dwd = DataWindowDesigner.DesignerLayout(this.customUserControl1);
             dwd.ShowDialog();
 
             if (!string.IsNullOrWhiteSpace(dwd.LayoutXml))
@@ -30,6 +30,11 @@ namespace DataWindow.Windows
         private void button2_Click(object sender, EventArgs e)
         {
             MessageBox.Show(this.customUserControl1.designer.LayoutXml);
+        }
+
+        private void button3_Click(object sender, EventArgs e)
+        {
+            this.customUserControl1.designer.LayoutXml = textBox1.Text;
         }
     }
 }

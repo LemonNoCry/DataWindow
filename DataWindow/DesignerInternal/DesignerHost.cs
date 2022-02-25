@@ -127,7 +127,7 @@ namespace DataWindow.DesignerInternal
 
         internal Control DesignContainer { get; set; }
 
-        internal string LogName { get; set; }
+        internal string LogName { get; set; } = AppDomain.CurrentDomain.BaseDirectory + "\\designer_log.txt";
 
         internal Designer Owner { get; set; }
 
@@ -878,8 +878,8 @@ namespace DataWindow.DesignerInternal
                             componentDesigner.InitializeNewComponent(new Dictionary<object, object>());
                     }
 
-                    control.SetProperty("Text", property);
                     control.Parent = parent;
+                    control.SetProperty("Text", property);
                 }
             }
             catch (Exception ex)
